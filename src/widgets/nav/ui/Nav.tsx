@@ -35,9 +35,9 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-[0.8rem]">
-          <Button variant="ghost" size="sm" as="a" href="#top">Sign in</Button>
+          <Button variant="ghost" size="sm" as="a" href="#top">Entrar</Button>
           <Button variant="primary" size="sm" as="a" href="#cta" iconRight={<Icon name="arrow-right" size={16} />}>
-            Start a project
+            Iniciar um projeto
           </Button>
         </div>
       </div>

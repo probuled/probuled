@@ -7,9 +7,9 @@ export function TechStack() {
     <section className="py-[clamp(4rem,8vw,8rem)] relative" id="stack">
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)]">
         <SectionHeader
-          eyebrow={<><Icon name="cpu" size={14} /> Our toolkit</>}
-          title="A modern stack, used with taste"
-          sub="We keep the toolbox sharp so your product stays fast, typed and maintainable."
+          eyebrow={<><Icon name="cpu" size={14} /> Nosso toolkit</>}
+          title="Uma stack moderna, usada com critério"
+          sub="Mantemos as ferramentas afiadas para que seu produto seja rápido, tipado e fácil de manter."
         />
         <div className="tech-6 grid grid-cols-[repeat(6,1fr)] gap-4">
           {TECH.map((tech, i) => (

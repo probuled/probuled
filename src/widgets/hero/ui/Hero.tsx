@@ -31,21 +31,21 @@ export function Hero() {
           </h1>
 
           <p className="enter text-[clamp(1.05rem,1rem+0.4vw,1.3rem)] text-[#424039] leading-[1.62] mt-6 max-w-[34ch]" data-d="3">
-            ProBuled designs, engineers and ships modern web software — pairing senior
-            developers with product designers so your roadmap moves every week.
+            A ProBuled projeta, desenvolve e entrega software web moderno, unindo desenvolvedores sênior
+            com designers de produto para que seu roadmap avance toda semana.
           </p>
 
           <div className="enter flex flex-wrap gap-4 mt-[2.2rem]" data-d="4">
             <Button variant="primary" size="lg" as="a" href="#cta" iconRight={<Icon name="arrow-right" size={18} />}>
-              Start a project
+              Iniciar um projeto
             </Button>
             <Button variant="secondary" size="lg" as="a" href="#work" iconLeft={<Icon name="play" size={16} />}>
-              See our work
+              Ver nosso trabalho
             </Button>
           </div>
 
           <div className="enter flex items-center gap-[1.4rem] mt-[2.6rem] flex-wrap" data-d="5">
-            <span className="text-[0.8125rem] text-[#807D72] font-semibold">Our default stack</span>
+            <span className="text-[0.8125rem] text-[#807D72] font-semibold">Nossa stack padrão</span>
             <StackChip color="#61DAFB" label="ReactJS" />
             <StackChip color="#A35BFF" label="Vite" />
             <StackChip color="#38BDF8" label="TailwindCSS" />
