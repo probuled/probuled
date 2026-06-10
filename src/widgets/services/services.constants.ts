@@ -4,7 +4,7 @@ export const SERVICES: ServiceItem[] = [
   {
     icon:   'code',
     title:  'Engenharia de produto',
-    body:   'Apps React full-stack com Vite e Tailwind, tipados, testados e prontos para produção.',
+    body:   'Aplicações full-stack tipadas, testadas e prontas para produção, com a stack certa para cada projeto.',
     points: ['Design systems', 'Bibliotecas de componentes', 'API & infra'],
   },
   {

@@ -2,10 +2,10 @@ import { Button }       from '@/shared/ui';
 import { Icon }         from '@/shared/ui';
 import { HeroCodeCard } from './HeroCodeCard';
 
-function StackChip({ color, label }: { color: string; label: string }) {
+function DeliveryChip({ icon, label }: { icon: JSX.Element; label: string }) {
   return (
     <span className="inline-flex items-center gap-[0.45rem] font-mono text-[0.8125rem] font-medium text-[#424039] px-[0.75rem] py-[0.4rem] bg-white border border-[#E4E1D6] rounded-pill shadow-xs">
-      <i style={{ background: color }} className="w-2 h-2 rounded-full" />
+      {icon}
       {label}
     </span>
   );
@@ -20,7 +20,7 @@ export function Hero() {
       <div className="hero-grid w-full max-w-wide mx-auto px-[clamp(1.25rem,4vw,4rem)] grid grid-cols-[1.05fr_0.95fr] gap-[clamp(2rem,5vw,5rem)] items-center">
         <div>
           <span className="enter inline-flex items-center gap-2 text-[0.75rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]" data-d="1">
-            <Icon name="sparkles" size={14} /> Software studio · React · Vite · Tailwind
+            <Icon name="sparkles" size={14} /> Software studio · Web · Mobile · APIs
           </span>
 
           <h1
@@ -45,10 +45,9 @@ export function Hero() {
           </div>
 
           <div className="enter flex items-center gap-[1.4rem] mt-[2.6rem] flex-wrap" data-d="5">
-            <span className="text-[0.8125rem] text-[#807D72] font-semibold">Nossa stack padrão</span>
-            <StackChip color="#61DAFB" label="ReactJS" />
-            <StackChip color="#A35BFF" label="Vite" />
-            <StackChip color="#38BDF8" label="TailwindCSS" />
+            <DeliveryChip icon={<Icon name="zap" size={13} />} label="Sprint semanal" />
+            <DeliveryChip icon={<Icon name="git-branch" size={13} />} label="Código no seu repo" />
+            <DeliveryChip icon={<Icon name="rocket" size={13} />} label="Deploy incluído" />
           </div>
         </div>
 

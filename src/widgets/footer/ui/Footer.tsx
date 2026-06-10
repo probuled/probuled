@@ -15,7 +15,7 @@ export function Footer() {
               ProBuled
             </div>
             <p className="text-[0.9375rem] text-[#807D72] mt-4 max-w-[30ch]">
-              Built pro, delivered right. Um estúdio de software que entrega produtos web modernos com React, Vite e Tailwind.
+              Built pro, delivered right. Um estúdio de software que projeta, desenvolve e entrega produtos digitais modernos.
             </p>
           </div>
 
