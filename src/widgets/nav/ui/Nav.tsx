@@ -22,10 +22,10 @@ export function Nav() {
         >
           <img
             src="/assets/logo/probuled-mark.png"
-            alt="Probuled"
+            alt="ProBuled"
             className="w-[38px] h-[38px] rounded-[10px] shadow-sm"
           />
-          Probuled
+          ProBuled
         </a>
 
         <div className="nav-links flex items-center gap-8">

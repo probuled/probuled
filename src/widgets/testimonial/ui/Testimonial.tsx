@@ -10,7 +10,7 @@ export function Testimonial() {
           <blockquote
             className="font-display font-semibold text-[clamp(2rem,1.4rem+2.6vw,3rem)] leading-[1.3] tracking-[-0.01em] mt-[1.4rem]"
           >
-            "Probuled shipped our platform in six weeks — typed, tested and genuinely
+            "ProBuled shipped our platform in six weeks — typed, tested and genuinely
             <span className="text-grad"> built right</span>. It felt like an in-house team, not an agency."
           </blockquote>
 

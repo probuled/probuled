@@ -9,10 +9,10 @@ export function Footer() {
             <div className="flex items-center gap-[0.7rem] font-display font-bold text-[1.25rem]">
               <img
                 src="/assets/logo/probuled-mark.png"
-                alt="Probuled"
+                alt="ProBuled"
                 className="w-9 h-9 rounded-[9px]"
               />
-              Probuled
+              ProBuled
             </div>
             <p className="text-[0.9375rem] text-[#807D72] mt-4 max-w-[30ch]">
               Built pro, delivered right. A software studio shipping modern web
@@ -39,7 +39,7 @@ export function Footer() {
         </div>
 
         <div className="flex items-center justify-between mt-[3rem] pt-6 border-t border-[#E4E1D6] text-[0.8125rem] text-[#807D72] flex-wrap gap-4">
-          <span>© 2026 Probuled. All rights reserved.</span>
+          <span>© 2026 ProBuled. All rights reserved.</span>
           <span>Privacy · Terms · hello@probuled.com</span>
         </div>
       </div>

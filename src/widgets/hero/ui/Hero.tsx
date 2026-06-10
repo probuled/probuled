@@ -31,7 +31,7 @@ export function Hero() {
           </h1>
 
           <p className="enter text-[clamp(1.05rem,1rem+0.4vw,1.3rem)] text-[#424039] leading-[1.62] mt-6 max-w-[34ch]" data-d="3">
-            Probuled designs, engineers and ships modern web software — pairing senior
+            ProBuled designs, engineers and ships modern web software — pairing senior
             developers with product designers so your roadmap moves every week.
           </p>
 

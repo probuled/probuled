@@ -5,7 +5,7 @@ export function Marquee() {
   return (
     <section className="group py-[2.5rem] border-y border-[#E4E1D6] bg-white overflow-hidden">
       <div className="text-center text-[0.8125rem] text-[#807D72] font-semibold tracking-[0.02em] uppercase mb-6">
-        Teams that ship with Probuled
+        Teams that ship with ProBuled
       </div>
       <div className="flex gap-[3.5rem] w-max animate-scroll-x group-hover:[animation-play-state:paused]">
         {items.map((m, i) => (
