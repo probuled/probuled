@@ -10,7 +10,7 @@ export function Services() {
         <SectionHeader
           eyebrow={<><Icon name="zap" size={14} /> O que fazemos</>}
           title="Engenharia que vale o que cobra"
-          sub="Três formas de parceria com a ProBuled, cada uma entregue por um time sênior, sem terceirizações."
+          sub="Três formas de parceria com a ProBuled. Você fala diretamente com quem escreve o código."
         />
         <div className="grid-3 grid grid-cols-[repeat(3,1fr)] gap-[1.4rem]">
           {SERVICES.map((s, i) => (

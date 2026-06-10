@@ -31,8 +31,8 @@ export function Hero() {
           </h1>
 
           <p className="enter text-[clamp(1.05rem,1rem+0.4vw,1.3rem)] text-[#424039] leading-[1.62] mt-6 max-w-[34ch]" data-d="3">
-            A ProBuled projeta, desenvolve e entrega software web moderno, unindo desenvolvedores sênior
-            com designers de produto para que seu roadmap avance toda semana.
+            A ProBuled projeta, desenvolve e entrega software web moderno. Engenharia e design de produto
+            focados em fazer seu roadmap avançar toda semana.
           </p>
 
           <div className="enter flex flex-wrap gap-4 mt-[2.2rem]" data-d="4">
@@ -45,9 +45,9 @@ export function Hero() {
           </div>
 
           <div className="enter flex items-center gap-[1.4rem] mt-[2.6rem] flex-wrap" data-d="5">
-            <DeliveryChip icon={<Icon name="zap" size={13} />} label="Sprint semanal" />
-            <DeliveryChip icon={<Icon name="git-branch" size={13} />} label="Código no seu repo" />
-            <DeliveryChip icon={<Icon name="rocket" size={13} />} label="Deploy incluído" />
+            <DeliveryChip icon={<Icon name="zap" size={13} />} label="Sem intermediários" />
+            <DeliveryChip icon={<Icon name="git-branch" size={13} />} label="Código é seu" />
+            <DeliveryChip icon={<Icon name="rocket" size={13} />} label="Zero surpresa" />
           </div>
         </div>
 
