@@ -19,6 +19,16 @@ const tones: Record<Tone, string> = {
   brand:   'bg-gradient-to-br from-[#534AB7] to-[#38317E] border-transparent text-white shadow-brand',
 };
 
+// Body text color per tone — adding a new tone means adding one entry here,
+// not editing a conditional (OCP: open for extension, closed for modification).
+const toneBody: Record<Tone, string> = {
+  default: 'text-neutral-700',
+  tint:    'text-neutral-700',
+  teal:    'text-neutral-700',
+  dark:    'text-[rgba(241,239,232,0.66)]',
+  brand:   'text-[rgba(255,255,255,0.82)]',
+};
+
 const pads: Record<Pad, string> = {
   sm: 'p-4',
   md: 'p-6',
@@ -61,7 +71,7 @@ export function Card({
         </h3>
       )}
       {(title || icon)
-        ? <div className={['font-sans text-base leading-[1.62]', tone === 'dark' ? 'text-[rgba(241,239,232,0.66)]' : 'text-neutral-700'].join(' ')}>{children}</div>
+        ? <div className={['font-sans text-base leading-[1.62]', toneBody[tone]].join(' ')}>{children}</div>
         : children}
     </div>
   );

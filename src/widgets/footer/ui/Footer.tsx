@@ -1,4 +1,4 @@
-import { COLS } from '../footer.constants';
+import { COLS } from "../footer.constants";
 
 export function Footer() {
   return (
@@ -7,11 +7,16 @@ export function Footer() {
         <div className="footer-grid grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-8">
           <div>
             <div className="flex items-center gap-[0.7rem] font-display font-bold text-[1.25rem]">
-              <img src="/assets/logo/probuled-mark.png" alt="Probuled" className="w-9 h-9 rounded-[9px]" />
+              <img
+                src="/assets/logo/probuled-mark.png"
+                alt="Probuled"
+                className="w-9 h-9 rounded-[9px]"
+              />
               Probuled
             </div>
             <p className="text-[0.9375rem] text-[#807D72] mt-4 max-w-[30ch]">
-              Built pro, delivered right. A software studio shipping modern web products with React, Vite and Tailwind.
+              Built pro, delivered right. A software studio shipping modern web
+              products with React, Vite and Tailwind.
             </p>
           </div>
 

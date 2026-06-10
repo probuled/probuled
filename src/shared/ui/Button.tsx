@@ -3,17 +3,28 @@ import React from 'react';
 type Variant = 'primary' | 'accent' | 'secondary' | 'ghost' | 'inverse';
 type Size    = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
-  variant?:  Variant;
-  size?:     Size;
-  block?:    boolean;
-  iconLeft?: React.ReactNode;
+// Shared visual props — the only contract every Button rendering exposes.
+interface CommonProps {
+  variant?:   Variant;
+  size?:      Size;
+  block?:     boolean;
+  iconLeft?:  React.ReactNode;
   iconRight?: React.ReactNode;
-  as?:       React.ElementType;
-  disabled?: boolean;
-  href?:     string;
-  type?:     'button' | 'submit' | 'reset';
 }
+
+// ISP/LSP: each rendering only accepts the DOM attributes it can actually honor.
+// A <button> never gets `href`; an <a> never gets `type`/`disabled`.
+type ButtonAsButton = CommonProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof CommonProps> & {
+    as?: 'button';
+  };
+
+type ButtonAsAnchor = CommonProps &
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof CommonProps> & {
+    as: 'a';
+  };
+
+type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 const base =
   'inline-flex items-center justify-center gap-[0.5em] font-sans font-semibold leading-none whitespace-nowrap cursor-pointer select-none border-[1.5px] rounded-pill no-underline relative ' +
@@ -35,37 +46,43 @@ const sizes: Record<Size, string> = {
   lg: 'text-[clamp(1.05rem,1rem+0.4vw,1.3rem)] px-[1.9rem] py-[0.95rem]',
 };
 
-export function Button({
-  children,
-  variant  = 'primary',
-  size     = 'md',
-  block    = false,
-  iconLeft,
-  iconRight,
-  as: Tag  = 'button',
-  disabled = false,
-  className,
-  ...rest
-}: ButtonProps) {
-  const cls = [
+export function Button(props: ButtonProps) {
+  const {
+    children, variant = 'primary', size = 'md', block = false,
+    iconLeft, iconRight, className,
+  } = props;
+
+  const cls = (extra = '') => [
     base,
     variants[variant],
     sizes[size],
-    block    ? 'w-full'                       : '',
-    disabled ? 'opacity-45 pointer-events-none' : '',
+    block ? 'w-full' : '',
+    extra,
     className ?? '',
   ].filter(Boolean).join(' ');
 
-  return (
-    <Tag
-      className={cls}
-      disabled={Tag === 'button' ? disabled : undefined}
-      aria-disabled={disabled || undefined}
-      {...rest}
-    >
+  const content = (
+    <>
       {iconLeft  && <span className="inline-flex text-[1.15em]" aria-hidden="true">{iconLeft}</span>}
       {children}
       {iconRight && <span className="inline-flex text-[1.15em]" aria-hidden="true">{iconRight}</span>}
-    </Tag>
+    </>
+  );
+
+  if (props.as === 'a') {
+    const { variant: _v, size: _s, block: _b, iconLeft: _il, iconRight: _ir, className: _c, as: _as, ...anchorProps } = props;
+    return <a className={cls()} {...anchorProps}>{content}</a>;
+  }
+
+  const { variant: _v, size: _s, block: _b, iconLeft: _il, iconRight: _ir, className: _c, as: _as, disabled = false, ...buttonProps } = props;
+  return (
+    <button
+      className={cls(disabled ? 'opacity-45 pointer-events-none' : '')}
+      disabled={disabled}
+      aria-disabled={disabled || undefined}
+      {...buttonProps}
+    >
+      {content}
+    </button>
   );
 }

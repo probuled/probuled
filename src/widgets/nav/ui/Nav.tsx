@@ -1,16 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/shared/ui';
-import { Icon }   from '@/shared/ui';
+import { Button, Icon } from '@/shared/ui';
+import { useScrolled }  from '@/shared/hooks';
 import { NAV_LINKS } from '../nav.constants';
 
 export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const scrolled = useScrolled(24);
 
   return (
     <nav
