@@ -2,7 +2,7 @@ import { Badge } from '@/shared/ui';
 
 export function Testimonial() {
   return (
-    <section className="py-[clamp(4rem,8vw,8rem)] relative bg-purple-100" id="work">
+    <section className="py-[clamp(4rem,8vw,8rem)] relative bg-purple-100" id="feedback">
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)]">
         <div className="reveal max-w-narrow mx-auto text-center">
           <Badge tone="teal" dot>Caso de cliente</Badge>

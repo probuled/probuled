@@ -18,7 +18,7 @@ export function CTA() {
               Iniciar um projeto
             </Button>
             <Button variant="ghost" size="lg" as="a" href="#top" style={{ color: '#fff' }} iconLeft={<Icon name="mail" size={18} />}>
-              hello@probuled.com
+              probuled@gmail.com
             </Button>
           </div>
         </div>

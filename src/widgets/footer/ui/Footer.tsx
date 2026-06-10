@@ -39,7 +39,7 @@ export function Footer() {
 
         <div className="flex items-center justify-between mt-[3rem] pt-6 border-t border-[#E4E1D6] text-[0.8125rem] text-[#807D72] flex-wrap gap-4">
           <span>© 2026 ProBuled. Todos os direitos reservados.</span>
-          <span>Privacidade · Termos · hello@probuled.com</span>
+          <span>Privacidade · Termos · probuled@gmail.com</span>
         </div>
       </div>
     </footer>
