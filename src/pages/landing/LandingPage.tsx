@@ -3,6 +3,7 @@ import { Marquee } from "@/widgets/marquee";
 import { Services } from "@/widgets/services";
 import { Process } from "@/widgets/process";
 import { Stats } from "@/widgets/stats";
+import { Portfolio } from "@/widgets/portfolio";
 import { TechStack } from "@/widgets/tech-stack";
 import { CTA } from "@/widgets/cta";
 import { SocialFollow } from "@/widgets/social-follow";
@@ -17,6 +18,7 @@ export function LandingPage() {
       <Services />
       <Process />
       <Stats />
+      <Portfolio />
       <TechStack />
       <CTA />
       <SocialFollow />
