@@ -4,7 +4,6 @@ import { Services } from "@/widgets/services";
 import { Process } from "@/widgets/process";
 import { Stats } from "@/widgets/stats";
 import { TechStack } from "@/widgets/tech-stack";
-import { Testimonial } from "@/widgets/testimonial";
 import { CTA } from "@/widgets/cta";
 import { SocialFollow } from "@/widgets/social-follow";
 
@@ -19,7 +18,6 @@ export function LandingPage() {
       <Process />
       <Stats />
       <TechStack />
-      <Testimonial />
       <CTA />
       <SocialFollow />
     </main>
