@@ -6,6 +6,7 @@ import { Stats } from "@/widgets/stats";
 import { TechStack } from "@/widgets/tech-stack";
 import { Testimonial } from "@/widgets/testimonial";
 import { CTA } from "@/widgets/cta";
+import { SocialFollow } from "@/widgets/social-follow";
 
 // Page-level content only. Global chrome (Nav/Footer) lives in the root route
 // layout (src/routes/__root.tsx) so it is shared across future routes.
@@ -20,6 +21,7 @@ export function LandingPage() {
       <TechStack />
       <Testimonial />
       <CTA />
+      <SocialFollow />
     </main>
   );
 }

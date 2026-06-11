@@ -3,4 +3,5 @@ export const NAV_LINKS: [href: string, label: string][] = [
   ["#process", "Processo"],
   ["#stack", "Tecnologia"],
   ["#feedback", "Feedback"],
+  ["#community", "Comunidade"],
 ];
