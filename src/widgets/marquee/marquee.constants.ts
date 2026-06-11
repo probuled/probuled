@@ -8,4 +8,5 @@ export const MARQUEE_ITEMS: MarqueeItem[] = [
   { type: 'logo', src: '/assets/torres-barros.png', alt: 'Torres & Barros', height: 'h-28' },
   { type: 'logo', src: '/assets/neosense.png', alt: 'Neosense', height: 'h-16' },
   { type: 'logo', src: '/assets/fuctura.png', alt: 'Fuctura', height: 'h-16' },
+  { type: 'logo', src: '/assets/pedra-do-mar.png', alt: 'Pedra do Mar', height: 'h-28' },
 ];
