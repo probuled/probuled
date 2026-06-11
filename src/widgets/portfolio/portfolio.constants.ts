@@ -1,25 +1,18 @@
-import type { Project } from './portfolio.types';
+import type { Project } from "./portfolio.types";
 
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Projeto 1",
-    description: "Substitua pela descrição real do projeto",
-    url: "https://example.com",
-    tags: ["React", "TypeScript"],
+    title: "Zé coxinha",
+    description: "Landing page para lanchonete",
+    url: "https://zecoxinhaze.vercel.app/",
+    tags: ["Landing Page"],
   },
   {
     id: 2,
-    title: "Projeto 2",
-    description: "Substitua pela descrição real do projeto",
-    url: "https://example.com",
-    tags: ["Next.js", "Tailwind"],
-  },
-  {
-    id: 3,
-    title: "Projeto 3",
-    description: "Substitua pela descrição real do projeto",
-    url: "https://example.com",
-    tags: ["Vue", "Node.js"],
+    title: "Tôrres & Barros",
+    description: "Landing page para escritório de advocacia",
+    url: "https://torres-barros.vercel.app/",
+    tags: ["Landing Page"],
   },
 ];
