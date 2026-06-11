@@ -3,8 +3,8 @@ import { MdOutlineEmail } from "react-icons/md";
 
 const SOCIALS = [
   { label: "Instagram", href: "https://www.instagram.com/probuled.com.br/", Icon: FaInstagram },
-  { label: "LinkedIn",  href: "#", Icon: FaLinkedin  },
-  { label: "X",         href: "#", Icon: FaXTwitter  },
+  { label: "LinkedIn",  href: "https://www.linkedin.com/in/probuled/", Icon: FaLinkedin  },
+  { label: "X",         href: "https://x.com/probuled", Icon: FaXTwitter  },
   { label: "Email",     href: "mailto:probuled@gmail.com", Icon: MdOutlineEmail },
 ];
 

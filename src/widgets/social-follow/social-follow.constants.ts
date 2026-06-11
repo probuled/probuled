@@ -35,7 +35,7 @@ export const SOCIAL_NETWORKS: SocialNetwork[] = [
     label: "LinkedIn",
     handle: "@probuled",
     description: "Cases, artigos e novidades do estúdio.",
-    href: "#",
+    href: "https://www.linkedin.com/in/probuled/",
     Icon: FaLinkedin,
     cta: "Conectar no LinkedIn",
     theme: {
@@ -49,7 +49,7 @@ export const SOCIAL_NETWORKS: SocialNetwork[] = [
     label: "X",
     handle: "@probuled",
     description: "Pensamentos rápidos sobre software, produto e processo.",
-    href: "#",
+    href: "https://x.com/probuled",
     Icon: FaXTwitter,
     cta: "Seguir no X",
     theme: {
