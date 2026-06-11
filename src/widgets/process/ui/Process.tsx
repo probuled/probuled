@@ -7,7 +7,7 @@ export function Process() {
     <section className="py-[clamp(4rem,8vw,8rem)] relative bg-white border-y border-[#E4E1D6]" id="process">
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)]">
         <SectionHeader
-          eyebrow={<><Icon name="git-branch" size={14} /> Como trabalhamos</>}
+          eyebrow={<><Icon name="git-branch" size={14} /> Processo</>}
           title="Um caminho claro da ideia ao produto"
           sub="Sem caixas-pretas. Toda semana você vê progresso que pode clicar."
         />

@@ -8,7 +8,7 @@ export function Services() {
     <section className="py-[clamp(4rem,8vw,8rem)] relative" id="services">
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)]">
         <SectionHeader
-          eyebrow={<><Icon name="zap" size={14} /> O que fazemos</>}
+          eyebrow={<><Icon name="zap" size={14} /> Serviços</>}
           title="Engenharia que vale o que cobra"
           sub="Três formas de parceria com a ProBuled. Você fala diretamente com quem escreve o código."
         />

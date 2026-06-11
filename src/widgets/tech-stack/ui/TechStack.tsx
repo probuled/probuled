@@ -9,7 +9,7 @@ export function TechStack() {
         <SectionHeader
           eyebrow={
             <>
-              <Icon name="cpu" size={14} /> Capacidades
+              <Icon name="cpu" size={14} /> Tecnologia
             </>
           }
           title="A ferramenta certa para cada problema"
