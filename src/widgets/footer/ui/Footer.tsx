@@ -1,11 +1,19 @@
-import { COLS } from "../footer.constants";
+import { FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { MdOutlineEmail } from "react-icons/md";
+
+const SOCIALS = [
+  { label: "Instagram", href: "https://www.instagram.com/probuled.com.br/", Icon: FaInstagram },
+  { label: "LinkedIn",  href: "#", Icon: FaLinkedin  },
+  { label: "X",         href: "#", Icon: FaXTwitter  },
+  { label: "Email",     href: "mailto:probuled@gmail.com", Icon: MdOutlineEmail },
+];
 
 export function Footer() {
   return (
     <footer className="bg-white border-t border-[#E4E1D6] pt-[4rem] pb-8">
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)]">
-        <div className="footer-grid grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-8">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
+          <div className="max-w-[32ch]">
             <div className="flex items-center gap-[0.7rem] font-display font-bold text-[1.25rem]">
               <img
                 src="/assets/logo/probuled-mark.png"
@@ -14,32 +22,30 @@ export function Footer() {
               />
               ProBuled
             </div>
-            <p className="text-[0.9375rem] text-[#807D72] mt-4 max-w-[30ch]">
+            <p className="text-[0.9375rem] text-[#807D72] mt-4">
               Built pro, delivered right. Um estúdio de software que projeta, desenvolve e entrega produtos digitais modernos.
             </p>
           </div>
 
-          {COLS.map((col) => (
-            <div key={col.heading}>
-              <h4 className="text-[0.8125rem] uppercase tracking-[0.02em] text-[#807D72] mb-4 font-bold">
-                {col.heading}
-              </h4>
-              {col.links.map((link) => (
-                <a
-                  key={link}
-                  href="#top"
-                  className="block text-[0.9375rem] text-[#424039] py-[0.3rem] [transition:color_150ms_cubic-bezier(0.4,0,0.2,1)] hover:text-[#534AB7]"
-                >
-                  {link}
-                </a>
-              ))}
-            </div>
-          ))}
+          <div className="flex items-center gap-3">
+            {SOCIALS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-xl border border-[#E4E1D6] text-[#807D72] [transition:color_150ms_cubic-bezier(0.4,0,0.2,1),border-color_150ms_cubic-bezier(0.4,0,0.2,1),background_150ms_cubic-bezier(0.4,0,0.2,1)] hover:text-[#534AB7] hover:border-[#534AB7] hover:bg-[#534AB7]/5"
+              >
+                <Icon size={19} />
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center justify-between mt-[3rem] pt-6 border-t border-[#E4E1D6] text-[0.8125rem] text-[#807D72] flex-wrap gap-4">
           <span>© 2026 ProBuled. Todos os direitos reservados.</span>
-          <span>Privacidade · Termos · probuled@gmail.com</span>
+          <span>Privacidade · Termos</span>
         </div>
       </div>
     </footer>
