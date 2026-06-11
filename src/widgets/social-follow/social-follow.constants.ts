@@ -32,20 +32,6 @@ export const SOCIAL_NETWORKS: SocialNetwork[] = [
     },
   },
   {
-    label: "LinkedIn",
-    handle: "@probuled",
-    description: "Cases, artigos e novidades do estúdio.",
-    href: "https://www.linkedin.com/in/probuled/",
-    Icon: FaLinkedin,
-    cta: "Conectar no LinkedIn",
-    theme: {
-      iconBg: "#0077B5",
-      borderColor: "#0077B5",
-      shadowColor: "rgba(0,119,181,0.14)",
-      ctaColor: "#0077B5",
-    },
-  },
-  {
     label: "X",
     handle: "@probuled",
     description: "Pensamentos rápidos sobre software, produto e processo.",
@@ -57,6 +43,20 @@ export const SOCIAL_NETWORKS: SocialNetwork[] = [
       borderColor: "#000000",
       shadowColor: "rgba(0,0,0,0.12)",
       ctaColor: "#000000",
+    },
+  },
+  {
+    label: "LinkedIn",
+    handle: "@probuled",
+    description: "Cases, artigos e novidades do estúdio.",
+    href: "https://www.linkedin.com/in/probuled/",
+    Icon: FaLinkedin,
+    cta: "Conectar no LinkedIn",
+    theme: {
+      iconBg: "#0077B5",
+      borderColor: "#0077B5",
+      shadowColor: "rgba(0,119,181,0.14)",
+      ctaColor: "#0077B5",
     },
   },
 ];
