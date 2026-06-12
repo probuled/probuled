@@ -152,9 +152,3 @@
   border-color: var(--net-border);
   box-shadow: 0 4px 28px var(--net-shadow);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; }
-  .reveal { opacity: 1 !important; transform: none !important; }
-  .enter  { opacity: 1 !important; transform: none !important; }
-}
