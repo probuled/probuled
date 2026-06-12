@@ -10,48 +10,42 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IniciarProjetoRouteImport } from './routes/iniciar-projeto'
-import { Route as LayoutRouteImport } from './routes/_layout'
-import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as IndexRouteImport } from './routes/index'
 
 const IniciarProjetoRoute = IniciarProjetoRouteImport.update({
   id: '/iniciar-projeto',
   path: '/iniciar-projeto',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutRoute = LayoutRouteImport.update({
-  id: '/_layout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LayoutIndexRoute = LayoutIndexRouteImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof LayoutIndexRoute
+  '/': typeof IndexRoute
   '/iniciar-projeto': typeof IniciarProjetoRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/iniciar-projeto': typeof IniciarProjetoRoute
-  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_layout': typeof LayoutRouteWithChildren
+  '/': typeof IndexRoute
   '/iniciar-projeto': typeof IniciarProjetoRoute
-  '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/iniciar-projeto'
   fileRoutesByTo: FileRoutesByTo
-  to: '/iniciar-projeto' | '/'
-  id: '__root__' | '/_layout' | '/iniciar-projeto' | '/_layout/'
+  to: '/' | '/iniciar-projeto'
+  id: '__root__' | '/' | '/iniciar-projeto'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  LayoutRoute: typeof LayoutRouteWithChildren
+  IndexRoute: typeof IndexRoute
   IniciarProjetoRoute: typeof IniciarProjetoRoute
 }
 
@@ -64,36 +58,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IniciarProjetoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_layout': {
-      id: '/_layout'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof LayoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_layout/': {
-      id: '/_layout/'
+    '/': {
+      id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof LayoutIndexRouteImport
-      parentRoute: typeof LayoutRoute
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface LayoutRouteChildren {
-  LayoutIndexRoute: typeof LayoutIndexRoute
-}
-
-const LayoutRouteChildren: LayoutRouteChildren = {
-  LayoutIndexRoute: LayoutIndexRoute,
-}
-
-const LayoutRouteWithChildren =
-  LayoutRoute._addFileChildren(LayoutRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
-  LayoutRoute: LayoutRouteWithChildren,
+  IndexRoute: IndexRoute,
   IniciarProjetoRoute: IniciarProjetoRoute,
 }
 export const routeTree = rootRouteImport

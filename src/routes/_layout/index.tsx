@@ -8,7 +8,7 @@ const landingSearchSchema = z.object({
   utm_medium: z.string().optional(),
 });
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_layout/")({
   validateSearch: landingSearchSchema,
   component: LandingPage,
 

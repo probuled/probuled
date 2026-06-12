@@ -5,6 +5,72 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background:            46 24% 93%;
+    --foreground:            60 2% 17%;
+    --card:                  0 0% 100%;
+    --card-foreground:       60 2% 17%;
+    --popover:               0 0% 100%;
+    --popover-foreground:    60 2% 17%;
+    --primary:               245 43% 50%;
+    --primary-foreground:    0 0% 100%;
+    --secondary:             47 21% 87%;
+    --secondary-foreground:  60 2% 17%;
+    --muted:                 47 21% 87%;
+    --muted-foreground:      46 7% 48%;
+    --accent:                245 90% 96%;
+    --accent-foreground:     245 44% 42%;
+    --destructive:           0 84% 60%;
+    --destructive-foreground:0 0% 100%;
+    --border:                46 15% 78%;
+    --input:                 46 15% 78%;
+    --ring:                  245 43% 50%;
+    --radius:                0.75rem;
+  }
+
+  /* Default shadcn light theme — scoped so it only affects the
+     "iniciar projeto" screen and leaves the branded landing untouched. */
+  .shadcn-scope {
+    --background:             0 0% 100%;
+    --foreground:            240 10% 3.9%;
+    --card:                   0 0% 100%;
+    --card-foreground:       240 10% 3.9%;
+    --popover:                0 0% 100%;
+    --popover-foreground:    240 10% 3.9%;
+    --primary:               240 5.9% 10%;
+    --primary-foreground:    0 0% 98%;
+    --secondary:             240 4.8% 95.9%;
+    --secondary-foreground:  240 5.9% 10%;
+    --muted:                 240 4.8% 95.9%;
+    --muted-foreground:      240 3.8% 46.1%;
+    --accent:                240 4.8% 95.9%;
+    --accent-foreground:     240 5.9% 10%;
+    --destructive:           0 84.2% 60.2%;
+    --destructive-foreground:0 0% 98%;
+    --border:                240 5.9% 90%;
+    --input:                 240 5.9% 90%;
+    --ring:                  240 5.9% 10%;
+    --radius:                0.5rem;
+
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  /* ProBuled-branded form: keep stock shadcn components but route their
+     accent/focus tokens to the brand purple (selected radios, focus rings,
+     calendar selection, primary button all turn purple). */
+  .pb-form {
+    --primary:            245 43% 50%;
+    --primary-foreground:  0 0% 100%;
+    --ring:               245 43% 50%;
+    --accent:             245 90% 96%;
+    --accent-foreground:  245 44% 42%;
+  }
+
+  /* Breathing room between each field's label and its input/control */
+  .pb-form [data-slot="field"][data-orientation="vertical"] {
+    gap: 0.5rem;
+  }
+
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   html, body { margin: 0; }
@@ -128,10 +194,4 @@
 .social-card:hover {
   border-color: var(--net-border);
   box-shadow: 0 4px 28px var(--net-shadow);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; }
-  .reveal { opacity: 1 !important; transform: none !important; }
-  .enter  { opacity: 1 !important; transform: none !important; }
 }
