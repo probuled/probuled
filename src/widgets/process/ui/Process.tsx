@@ -9,7 +9,7 @@ export function Process() {
         <SectionHeader
           eyebrow={<><Icon name="git-branch" size={14} /> Processo</>}
           title="Um caminho claro da ideia ao produto"
-          sub="Sem caixas-pretas. Toda semana você vê progresso que pode clicar."
+          sub="Nada escondido. Toda semana você acompanha, testa e dá o sinal verde."
         />
         <div className="steps-4 grid grid-cols-[repeat(4,1fr)] gap-[1.2rem]">
           {STEPS.map((step, i) => (

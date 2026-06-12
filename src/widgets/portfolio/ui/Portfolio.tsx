@@ -58,7 +58,7 @@ export function Portfolio() {
             <button
               onClick={prev}
               aria-label="Projeto anterior"
-              className="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-pb-purple hover:text-pb-purple transition-colors bg-transparent cursor-pointer flex-shrink-0"
+              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0"
             >
               <Icon name="chevron-left" size={18} />
             </button>
@@ -67,8 +67,8 @@ export function Portfolio() {
             <div style={{ width: '100%', maxWidth: '740px' }}>
               <div style={{
                 background: 'linear-gradient(160deg, #2E2E2E 0%, #1A1A1A 100%)',
-                borderRadius: '14px 14px 3px 3px',
-                padding: '10px 10px 22px',
+                borderRadius: '14px',
+                padding: '10px',
                 boxShadow: '0 0 0 1px rgba(255,255,255,0.07), 0 48px 96px -24px rgba(0,0,0,0.65)',
               }}>
                 {/* Camera */}
@@ -228,25 +228,12 @@ export function Portfolio() {
                 </div>
               </div>
 
-              {/* Base */}
-              <div style={{
-                background: 'linear-gradient(180deg, #252525 0%, #1E1E1E 100%)',
-                borderRadius: '0 0 12px 12px',
-                height: '48px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05)',
-              }} />
-              <div style={{
-                height: '5px',
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 100%)',
-                borderRadius: '0 0 12px 12px',
-                marginInline: '6%',
-              }} />
             </div>
 
             <button
               onClick={next}
               aria-label="Próximo projeto"
-              className="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-pb-purple hover:text-pb-purple transition-colors bg-transparent cursor-pointer flex-shrink-0"
+              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0"
             >
               <Icon name="chevron-right" size={18} />
             </button>
