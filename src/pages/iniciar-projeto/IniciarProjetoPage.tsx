@@ -120,7 +120,7 @@ function Stepper({ current }: { current: Step }) {
             <div className="flex flex-col items-center gap-1.5 shrink-0">
               <div
                 className={cn(
-                  "w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium border transition-colors",
+                  "w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-sm font-medium border transition-colors",
                   done
                     ? "bg-[#1D9E75] border-[#1D9E75] text-white"
                     : active
@@ -132,7 +132,7 @@ function Stepper({ current }: { current: Step }) {
               </div>
               <span
                 className={cn(
-                  "text-xs font-medium whitespace-nowrap transition-colors",
+                  "text-[0.62rem] sm:text-xs font-medium whitespace-nowrap transition-colors",
                   done
                     ? "text-[#157E5E]"
                     : active
@@ -146,7 +146,7 @@ function Stepper({ current }: { current: Step }) {
             {i < STEPS.length - 1 && (
               <div
                 className={cn(
-                  "h-px w-[72px] mx-3 mb-5 transition-colors",
+                  "h-px w-7 sm:w-[72px] mx-1.5 sm:mx-3 mb-5 transition-colors",
                   current > n ? "bg-[#1D9E75]" : "bg-border",
                 )}
               />
@@ -165,7 +165,7 @@ function StepApresentacao({ onNext }: { onNext: () => void }) {
       <div className="relative">
         <div className="absolute -top-12 -right-8 w-64 h-64 rounded-full blur-[64px] opacity-40 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
         <div className="absolute -bottom-16 -left-10 w-52 h-52 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_50%_50%,#63CDA6,#1D9E75)] pointer-events-none" />
-        <div className="relative space-y-3">
+        <div className="relative space-y-3 text-center sm:text-left">
           <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <Sparkles size={13} />
             Iniciar um projeto
@@ -173,7 +173,7 @@ function StepApresentacao({ onNext }: { onNext: () => void }) {
           <h1 className="font-display font-bold tracking-[-0.03em] leading-[1.05] text-[clamp(2.1rem,1.5rem+2.6vw,3rem)] text-[#2C2763]">
             Vamos construir algo <span className="text-grad">pro</span>.
           </h1>
-          <p className="text-[#424039] text-lg leading-relaxed max-w-[52ch]">
+          <p className="text-[#424039] text-lg leading-relaxed max-w-[52ch] mx-auto sm:mx-0">
             Preencha o formulário e a ProBuled entra em contato em até um dia
             útil com plano, cronograma e proposta detalhada.
           </p>
@@ -271,7 +271,7 @@ function StepTermos({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3">
+        <div className="relative space-y-3 text-center sm:text-left">
           <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <ShieldCheck size={13} />
             Termos &amp; condições
@@ -279,7 +279,7 @@ function StepTermos({
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Termos de <span className="text-grad">concordância</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch]">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
             Leia e confirme cada item abaixo antes de prosseguir.
           </p>
         </div>
@@ -347,7 +347,7 @@ function StepTermos({
           onClick={onNext}
           className="bg-[#534AB7] hover:bg-[#443C9C] text-white shadow-brand font-display disabled:shadow-none"
         >
-          Próximo: dados do projeto
+          Dados do projeto
           <ArrowRight size={18} />
         </Button>
       </div>
@@ -404,7 +404,7 @@ function StepForm({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3">
+        <div className="relative space-y-3 text-center sm:text-left">
           <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <Rocket size={13} />
             Dados do projeto
@@ -412,7 +412,7 @@ function StepForm({
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Conte sobre o seu <span className="text-grad">projeto</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch]">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
             Preencha todos os campos. Essas informações serão usadas para
             elaborar a proposta e o contrato.
           </p>
@@ -464,6 +464,7 @@ function StepForm({
                 </FieldLabel>
                 <Input
                   id="cpfCnpj"
+                  inputMode="numeric"
                   placeholder={
                     form.tipoCpfCnpj === "cpf"
                       ? "000.000.000-00"
@@ -514,6 +515,7 @@ function StepForm({
               <Input
                 id="telefone"
                 type="tel"
+                inputMode="numeric"
                 placeholder="(11) 99999-9999"
                 required
                 aria-invalid={!!errors.telefone}

@@ -13,7 +13,7 @@ export function Marquee() {
           item.type === "logo" ? (
             <div
               key={i}
-              className={`h-24 flex items-center justify-center px-14 ${item.offset ?? ""}`}
+              className={`h-24 flex items-center justify-center px-6 sm:px-14 ${item.offset ?? ""}`}
             >
               <img
                 src={item.src}
@@ -24,7 +24,7 @@ export function Marquee() {
           ) : (
             <span
               key={i}
-              className="px-14 font-display font-bold text-[1.5rem] text-[#ABA79A] whitespace-nowrap [transition:color_150ms_cubic-bezier(0.4,0,0.2,1)] hover:text-[#534AB7]"
+              className="px-6 sm:px-14 font-display font-bold text-[1.5rem] text-[#ABA79A] whitespace-nowrap [transition:color_150ms_cubic-bezier(0.4,0,0.2,1)] hover:text-[#534AB7]"
             >
               {item.label}
             </span>

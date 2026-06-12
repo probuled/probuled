@@ -17,7 +17,7 @@ export function HeroCodeCard() {
           <span className="w-[11px] h-[11px] rounded-full bg-[#61C554]" />
           <span className="ml-[0.7rem] font-mono text-[12px] text-[rgba(238,237,254,0.6)]">App.tsx · probuled</span>
         </div>
-        <div className="px-6 pt-[1.3rem] pb-[1.7rem] font-mono text-[13.5px] leading-[1.85] text-[#CFCBE8]">
+        <div className="px-[clamp(1rem,4vw,1.5rem)] pt-[1.3rem] pb-[1.7rem] font-mono text-[clamp(10px,2.7vw,13.5px)] leading-[1.85] text-[#CFCBE8]">
           <span className="block whitespace-pre"><span className="text-[#6E6A90]">// shipped, typed and tested</span></span>
           <span className="block whitespace-pre"><span className="text-[#8F86DC]">import</span>{' { ship } '}<span className="text-[#8F86DC]">from</span> <span className="text-[#63CDA6]">'@probuled/core'</span></span>
           <span className="block whitespace-pre">&nbsp;</span>
