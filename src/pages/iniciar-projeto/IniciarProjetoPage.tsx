@@ -766,13 +766,13 @@ function SuccessState() {
 
       <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#D9D6F6] bg-[#EEEDFE] px-4 py-2 text-sm text-[#38317E]">
         <Mail size={16} className="text-[#534AB7]" />
-        Enviado para{" "}
+        Enviado para:{" "}
         <span className="font-semibold text-[#534AB7]">probuled@gmail.com</span>
       </div>
 
       <p className="mt-5 text-[#424039] leading-relaxed max-w-[42ch]">
-        Recebemos os dados do seu projeto. A ProBuled vai analisar e responder em
-        até 1 dia útil com plano, cronograma e proposta detalhada.
+        Recebemos os dados do seu projeto. A ProBuled vai analisar e responder
+        em até 1 dia útil com plano, cronograma e proposta detalhada.
       </p>
 
       {/* Mais contato — redes sociais */}
