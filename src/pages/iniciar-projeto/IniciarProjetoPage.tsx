@@ -271,7 +271,7 @@ function StepTermos({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3">
+        <div className="relative space-y-3 text-center sm:text-left">
           <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <ShieldCheck size={13} />
             Termos &amp; condições
@@ -279,7 +279,7 @@ function StepTermos({
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Termos de <span className="text-grad">concordância</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch]">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
             Leia e confirme cada item abaixo antes de prosseguir.
           </p>
         </div>
@@ -347,7 +347,7 @@ function StepTermos({
           onClick={onNext}
           className="bg-[#534AB7] hover:bg-[#443C9C] text-white shadow-brand font-display disabled:shadow-none"
         >
-          Próximo: dados do projeto
+          Dados do projeto
           <ArrowRight size={18} />
         </Button>
       </div>
@@ -404,7 +404,7 @@ function StepForm({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3">
+        <div className="relative space-y-3 text-center sm:text-left">
           <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <Rocket size={13} />
             Dados do projeto
@@ -412,7 +412,7 @@ function StepForm({
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Conte sobre o seu <span className="text-grad">projeto</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch]">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
             Preencha todos os campos. Essas informações serão usadas para
             elaborar a proposta e o contrato.
           </p>
