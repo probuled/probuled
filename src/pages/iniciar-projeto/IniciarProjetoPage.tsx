@@ -464,6 +464,7 @@ function StepForm({
                 </FieldLabel>
                 <Input
                   id="cpfCnpj"
+                  inputMode="numeric"
                   placeholder={
                     form.tipoCpfCnpj === "cpf"
                       ? "000.000.000-00"
@@ -514,6 +515,7 @@ function StepForm({
               <Input
                 id="telefone"
                 type="tel"
+                inputMode="numeric"
                 placeholder="(11) 99999-9999"
                 required
                 aria-invalid={!!errors.telefone}
