@@ -194,7 +194,7 @@ function StepContrato({
         </ul>
       </div>
 
-      <div className="flex items-start gap-3">
+      <div className="flex items-start justify-center gap-3">
         <Checkbox
           id="contrato"
           checked={accepted}
