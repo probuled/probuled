@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Check, ArrowRight, ChevronLeft, ChevronDown, Zap, Shield, Rocket,
-  Layers, CheckCircle, ArrowUpRight,
+  Layers, CheckCircle, Mail,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -60,8 +60,15 @@ function maskPhone(value: string): string {
 
 const STEPS = [
   { n: 1 as Step, label: 'Apresentação'     },
-  { n: 2 as Step, label: 'Contrato'         },
+  { n: 2 as Step, label: 'Termos'           },
   { n: 3 as Step, label: 'Dados do projeto' },
+];
+
+const TERMOS = [
+  'Concordo que meus dados pessoais serão usados exclusivamente para elaboração da proposta e do contrato de serviços.',
+  'Estou ciente de que nenhum projeto é iniciado sem contrato formal assinado por ambas as partes.',
+  'Entendo que o valor e escopo definitivos serão apresentados na proposta por e-mail, e que só assinarei após revisão.',
+  'Confirmo que os dados informados são verdadeiros e correspondem ao solicitante do serviço.',
 ];
 
 function Stepper({ current }: { current: Step }) {
@@ -158,7 +165,7 @@ function StepApresentacao({ onNext }: { onNext: () => void }) {
 
       <div className="flex justify-end pt-2">
         <Button size="lg" onClick={onNext}>
-          Próximo: ler o contrato
+          Próximo: termos
           <ArrowRight size={18} />
         </Button>
       </div>
@@ -166,82 +173,49 @@ function StepApresentacao({ onNext }: { onNext: () => void }) {
   );
 }
 
-function StepContrato({
-  accepted, onToggle, onBack, onNext,
+function StepTermos({
+  aceitos, onToggle, onBack, onNext,
 }: {
-  accepted: boolean;
-  onToggle: () => void;
+  aceitos: boolean[];
+  onToggle: (i: number) => void;
   onBack:   () => void;
   onNext:   () => void;
 }) {
+  const todos = aceitos.every(Boolean);
   return (
     <div className="space-y-6">
       <div>
         <h2 className="font-display font-bold text-[clamp(1.5rem,1.2rem+1.5vw,2rem)] text-[#2C2763]">
-          Contrato de Prestação de Serviços
+          Termos de concordância
         </h2>
         <p className="mt-2 text-muted-foreground">
-          Leia o contrato antes de prosseguir. Ele estabelece as responsabilidades de ambas as partes, prazo, pagamento e entregáveis.
+          Leia e confirme cada item abaixo antes de prosseguir.
         </p>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="p-5 border-b border-border flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shrink-0">
-              <Shield size={20} className="text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">Contrato de Prestação de Serviços</p>
-              <p className="text-sm text-muted-foreground">ProBuled — Versão atual</p>
-            </div>
-          </div>
-          <a
-            href="/contrato-probuled.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-accent-foreground transition-colors underline underline-offset-2 shrink-0"
+      <div className="space-y-3">
+        {TERMOS.map((termo, i) => (
+          <label
+            key={i}
+            htmlFor={`termo-${i}`}
+            className={cn(
+              'flex items-start gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all',
+              aceitos[i]
+                ? 'border-primary bg-accent'
+                : 'border-border bg-card hover:border-primary/40'
+            )}
           >
-            <ArrowUpRight size={15} />
-            Abrir PDF
-          </a>
-        </div>
-
-        <ul className="p-5 space-y-3">
-          {[
-            'Definição clara dos serviços, escopo e entregáveis.',
-            'Cronograma com datas de início, marcos e entrega final.',
-            'Condições de pagamento: à vista ou parcelado (30% de entrada).',
-            'Propriedade intelectual transferida ao contratante após quitação.',
-            'Cláusulas de revisão, suporte pós-entrega e rescisão.',
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-              <CheckCircle size={16} className="text-[#1D9E75] shrink-0 mt-0.5" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="flex items-start justify-center gap-3">
-        <Checkbox
-          id="contrato"
-          checked={accepted}
-          onCheckedChange={() => onToggle()}
-          className="mt-0.5"
-        />
-        <Label htmlFor="contrato" className="text-sm text-muted-foreground leading-relaxed cursor-pointer font-normal">
-          Li e concordo com os termos do{' '}
-          <a
-            href="/contrato-probuled.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline underline-offset-2 font-semibold"
-          >
-            Contrato de Prestação de Serviços
-          </a>{' '}
-          da ProBuled.
-        </Label>
+            <Checkbox
+              id={`termo-${i}`}
+              checked={aceitos[i]}
+              onCheckedChange={() => onToggle(i)}
+              className="mt-0.5 shrink-0"
+            />
+            <span className="text-sm text-muted-foreground leading-relaxed select-none">
+              {termo}
+            </span>
+          </label>
+        ))}
       </div>
 
       <div className="flex items-center justify-between gap-4 pt-2">
@@ -249,7 +223,7 @@ function StepContrato({
           <ChevronLeft size={18} />
           Voltar
         </Button>
-        <Button size="lg" disabled={!accepted} onClick={onNext}>
+        <Button size="lg" disabled={!todos} onClick={onNext}>
           Próximo: dados do projeto
           <ArrowRight size={18} />
         </Button>
@@ -509,6 +483,19 @@ function StepForm({
         )}
       </FieldSet>
 
+      <div className="rounded-[5px] border-2 border-primary overflow-hidden">
+        <div className="bg-primary px-4 py-3 flex items-center gap-2.5">
+          <Mail size={17} className="text-white shrink-0" />
+          <p className="font-bold text-white text-sm tracking-wide">Contrato enviado por e-mail</p>
+        </div>
+        <div className="bg-accent px-4 py-3.5">
+          <p className="text-sm text-accent-foreground leading-relaxed">
+            Após o envio, a ProBuled analisa sua solicitação e envia o contrato completo para o e-mail informado. Você terá tempo para ler tudo com calma antes de assinar.{' '}
+            <span className="font-semibold text-primary">Nenhum pagamento é cobrado sem sua aprovação.</span>
+          </p>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between gap-4 pt-2">
         <Button variant="ghost" onClick={onBack} type="button">
           <ChevronLeft size={18} />
@@ -545,8 +532,8 @@ function SuccessState() {
 }
 
 export function IniciarProjetoPage() {
-  const [step,            setStep]            = useState<Step>(1);
-  const [contratoAceito,  setContratoAceito]  = useState(false);
+  const [step,         setStep]         = useState<Step>(1);
+  const [termosAceitos, setTermosAceitos] = useState([false, false, false, false]);
   const [submitted,       setSubmitted]       = useState(false);
   const [form,            setForm]            = useState<FormData>({
     razaoSocial:      '',
@@ -624,9 +611,9 @@ export function IniciarProjetoPage() {
 
           {step === 1 && <StepApresentacao onNext={() => setStep(2)} />}
           {step === 2 && (
-            <StepContrato
-              accepted={contratoAceito}
-              onToggle={() => setContratoAceito(v => !v)}
+            <StepTermos
+              aceitos={termosAceitos}
+              onToggle={(i) => setTermosAceitos(v => v.map((val, idx) => idx === i ? !val : val))}
               onBack={() => setStep(1)}
               onNext={() => setStep(3)}
             />
