@@ -886,25 +886,41 @@ export function IniciarProjetoPage() {
       return;
     }
 
+    const documento = data.tipoCpfCnpj.toUpperCase();
+    const formaPagamento =
+      data.formaPagamento === "a-vista"
+        ? "À Vista (pagamento único)"
+        : `Parcelado em ${data.numeroParcelas}x (30% de entrada + parcelas)`;
+    const dataEntrega = format(data.dataEntrega, "dd 'de' MMMM 'de' yyyy", {
+      locale: ptBR,
+    });
+
+    const mensagem = `Olá ProBuled, você tem mais um cliente querendo iniciar um projeto!
+
+O cliente ${data.razaoSocial} (${documento}: ${data.cpfCnpj}) preencheu o formulário e quer tirar a ideia do papel.
+
+Aqui estão os dados para você preparar a proposta:
+
+Cliente: ${data.razaoSocial}
+${documento}: ${data.cpfCnpj}
+Endereço: ${data.endereco}
+Telefone: ${data.telefone}
+E-mail: ${data.email}
+Site: ${data.urlSite || "Não informado"}
+Data de entrega desejada: ${dataEntrega}
+Forma de pagamento: ${formaPagamento}
+
+O que ele precisa:
+${data.descricaoServico}
+
+Entre em contato em até 1 dia útil para enviar o plano e a proposta. Para responder, é só usar o e-mail do cliente acima.`;
+
     const payload = {
       access_key: accessKey,
-      subject: `Novo Projeto – ${data.razaoSocial}`,
-      from_name: "Formulário ProBuled",
-      "Razão Social / Nome": data.razaoSocial,
-      [data.tipoCpfCnpj.toUpperCase()]: data.cpfCnpj,
-      Endereço: data.endereco,
-      Telefone: data.telefone,
-      "E-mail do cliente": data.email,
-      "Descrição do serviço": data.descricaoServico,
-      "URL / Nome do site": data.urlSite || "Não definida",
-      "Data de entrega": format(data.dataEntrega, "dd/MM/yyyy"),
-      "Forma de pagamento":
-        data.formaPagamento === "a-vista"
-          ? "À Vista"
-          : "Parcelado (30% entrada + parcelas)",
-      ...(data.formaPagamento === "parcelado"
-        ? { "Número de parcelas": data.numeroParcelas }
-        : {}),
+      subject: `Novo cliente quer iniciar um projeto — ${data.razaoSocial}`,
+      from_name: "ProBuled — Iniciar projeto",
+      replyto: data.email,
+      message: mensagem,
     };
 
     setSending(true);
