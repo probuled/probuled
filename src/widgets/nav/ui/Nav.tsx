@@ -17,7 +17,7 @@ export function Nav() {
     >
       <div className="w-full max-w-wide mx-auto px-[clamp(1.25rem,4vw,4rem)] flex items-center justify-between h-[74px]">
         <a
-          className="flex items-center gap-[0.7rem] font-display font-bold text-[1.35rem] tracking-[-0.02em] text-[#2C2C2A]"
+          className="flex items-center gap-[0.7rem] font-display font-bold text-[1.35rem] tracking-[-0.02em]"
           href="#top"
         >
           <img
@@ -25,7 +25,7 @@ export function Nav() {
             alt="ProBuled"
             className="w-[38px] h-[38px] rounded-[10px] shadow-sm"
           />
-          ProBuled
+          <span className="text-[#2C2763]">ProBuled</span>
         </a>
 
         <div className="nav-links flex items-center gap-8">
