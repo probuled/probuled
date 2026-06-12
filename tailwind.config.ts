@@ -1,10 +1,44 @@
 import type { Config } from 'tailwindcss'
+import animate from 'tailwindcss-animate'
 
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
+        background:  'hsl(var(--background))',
+        foreground:  'hsl(var(--foreground))',
+        border:      'hsl(var(--border))',
+        input:       'hsl(var(--input))',
+        ring:        'hsl(var(--ring))',
+        primary: {
+          DEFAULT:    'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT:    'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT:    'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT:    'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        destructive: {
+          DEFAULT:    'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        card: {
+          DEFAULT:    'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT:    'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
         'pb-purple': '#534AB7',
         'pb-purple-light': '#EEEDFE',
         'pb-teal': '#1D9E75',
@@ -96,6 +130,10 @@ export default {
         enterUp: {
           to: { opacity: '1', transform: 'none' },
         },
+        'glow-pulse': {
+          '0%, 100%': { boxShadow: '0 0 0 4px rgba(83,74,183,0.14), 0 18px 40px -14px rgba(83,74,183,0.48)' },
+          '50%':      { boxShadow: '0 0 0 9px rgba(83,74,183,0.24), 0 28px 56px -14px rgba(83,74,183,0.72)' },
+        },
       },
       animation: {
         'floaty':          'floaty 16s cubic-bezier(0.65,0,0.35,1) infinite',
@@ -109,8 +147,9 @@ export default {
         'enter-3':         'enterUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.34s both',
         'enter-4':         'enterUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.46s both',
         'enter-5':         'enterUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.58s both',
+        'glow-pulse':      'glow-pulse 2.4s ease-in-out infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [animate],
 } satisfies Config
