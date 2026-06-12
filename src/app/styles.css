@@ -166,6 +166,12 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Mobile nav — burger hidden on desktop, dropdown hidden on desktop */
+.nav-burger { display: none; }
+@media (min-width: 881px) {
+  .nav-mobile { display: none !important; }
+}
+
 /* Non-standard breakpoints that don't map to Tailwind defaults */
 @media (max-width: 980px) {
   .hero-grid   { grid-template-columns: 1fr !important; }
@@ -178,7 +184,9 @@
   .tech-6  { grid-template-columns: repeat(3,1fr) !important; }
 }
 @media (max-width: 880px) {
-  .nav-links { display: none !important; }
+  .nav-links       { display: none !important; }
+  .nav-cta-desktop { display: none !important; }
+  .nav-burger      { display: inline-flex !important; }
 }
 @media (max-width: 760px) {
   .stats-4     { grid-template-columns: 1fr 1fr !important; gap: 2.5rem !important; }
@@ -186,6 +194,10 @@
 }
 @media (max-width: 560px) {
   .steps-4 { grid-template-columns: 1fr !important; }
+  .tech-6  { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width: 380px) {
+  .stats-4 { grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
 
 .social-card {

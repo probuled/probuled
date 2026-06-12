@@ -26,13 +26,13 @@ export function Portfolio() {
 
         <div className="reveal flex flex-col items-center">
           {/* ── Laptop + arrows ──────────────────────────────────────────── */}
-          <div className="flex items-center gap-4 w-full justify-center">
+          <div className="flex items-center gap-2 sm:gap-4 w-full justify-center">
 
             <button
               onClick={prev}
               disabled={active === 0}
               aria-label="Projeto anterior"
-              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
+              className="w-9 h-9 sm:w-12 sm:h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
             >
               <Icon name="chevron-left" size={18} />
             </button>
@@ -206,7 +206,7 @@ export function Portfolio() {
               onClick={next}
               disabled={active === total - 1}
               aria-label="Próximo projeto"
-              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
+              className="w-9 h-9 sm:w-12 sm:h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
             >
               <Icon name="chevron-right" size={18} />
             </button>

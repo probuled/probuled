@@ -43,14 +43,14 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr] gap-12">
           {/* Brand column */}
           <div className="flex flex-col gap-6">
-            <a href="#" className="w-fit -ml-10 -mt-16">
+            <a href="#" className="w-fit -ml-6 -mt-10 sm:-ml-10 sm:-mt-16">
               <img
                 src="/assets/logo/probuled-horizontal-sem-fundo.png"
                 alt="ProBuled — Built pro, delivered right"
-                className="h-64 w-auto rounded-2xl"
+                className="h-44 sm:h-64 w-auto max-w-full rounded-2xl"
               />
             </a>
-            <p className="text-[0.9rem] text-white/50 leading-relaxed max-w-[30ch] -mt-12">
+            <p className="text-[0.9rem] text-white/50 leading-relaxed max-w-[30ch] -mt-8 sm:-mt-12">
               Estúdio de software especializado em transformar ideias em
               produtos digitais modernos, do design à produção.
             </p>
