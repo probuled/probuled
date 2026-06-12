@@ -1,46 +1,19 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { SectionHeader } from '@/shared/ui';
 import { Icon } from '@/shared/ui';
 import { PROJECTS } from '../portfolio.constants';
 
 const CHROME_H = 34;
 
-// Track layout: [clone-of-last, ...PROJECTS, clone-of-first]
-// position 1..total = real; 0 = clone-last; total+1 = clone-first
-
 export function Portfolio() {
   const total = PROJECTS.length;
-  const slideCount = total + 2;
-  const slides = [PROJECTS[total - 1], ...PROJECTS, PROJECTS[0]];
 
-  const [position, setPosition] = useState(1);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const active = ((position - 1) + total) % total;
+  const [active, setActive] = useState(0);
   const project = PROJECTS[active];
 
-  const next = useCallback(() => setPosition(p => p + 1), []);
-  const prev = useCallback(() => setPosition(p => p - 1), []);
-  const goTo = useCallback((i: number) => setPosition(i + 1), []);
-
-  const handleTransitionEnd = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-
-    if (position >= slideCount - 1) {
-      el.style.transition = 'none';
-      setPosition(1);
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (trackRef.current) trackRef.current.style.transition = '';
-      }));
-    } else if (position <= 0) {
-      el.style.transition = 'none';
-      setPosition(total);
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (trackRef.current) trackRef.current.style.transition = '';
-      }));
-    }
-  }, [position, slideCount, total]);
+  const next = useCallback(() => setActive(i => Math.min(i + 1, total - 1)), [total]);
+  const prev = useCallback(() => setActive(i => Math.max(i - 1, 0)), []);
+  const goTo = useCallback((i: number) => setActive(i), []);
 
   return (
     <section className="py-[clamp(4rem,8vw,8rem)]" id="portfolio">
@@ -57,8 +30,9 @@ export function Portfolio() {
 
             <button
               onClick={prev}
+              disabled={active === 0}
               aria-label="Projeto anterior"
-              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0"
+              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
             >
               <Icon name="chevron-left" size={18} />
             </button>
@@ -129,28 +103,26 @@ export function Portfolio() {
                     overflow: 'hidden',
                   }}>
                     <div
-                      ref={trackRef}
-                      onTransitionEnd={handleTransitionEnd}
                       style={{
                         display: 'flex',
-                        width: `${slideCount * 100}%`,
+                        width: `${total * 100}%`,
                         height: '100%',
-                        transform: `translateX(-${(position * 100) / slideCount}%)`,
+                        transform: `translateX(-${(active * 100) / total}%)`,
                         transition: 'transform 550ms cubic-bezier(0.16,1,0.3,1)',
                       }}
                     >
-                      {slides.map((p, i) => (
+                      {PROJECTS.map((p, i) => (
                         <div
                           key={i}
                           style={{
-                            width: `${100 / slideCount}%`,
+                            width: `${100 / total}%`,
                             flexShrink: 0,
                             height: '100%',
                             position: 'relative',
                             overflow: 'hidden',
                           }}
                         >
-                          {Math.abs(i - position) <= 1 && (
+                          {Math.abs(i - active) <= 1 && (
                             <iframe
                               src={p.url}
                               title={p.title}
@@ -232,8 +204,9 @@ export function Portfolio() {
 
             <button
               onClick={next}
+              disabled={active === total - 1}
               aria-label="Próximo projeto"
-              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0"
+              className="w-12 h-12 rounded-full border-2 border-pb-purple flex items-center justify-center text-pb-purple hover:bg-pb-purple hover:text-white transition-colors bg-white shadow-md cursor-pointer flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-pb-purple"
             >
               <Icon name="chevron-right" size={18} />
             </button>
