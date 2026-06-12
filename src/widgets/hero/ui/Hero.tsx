@@ -36,10 +36,10 @@ export function Hero() {
           </p>
 
           <div className="enter flex flex-wrap gap-4 mt-[2.2rem] max-[980px]:justify-center" data-d="4">
-            <Button variant="primary" size="lg" as="a" href="#cta" className="animate-glow-pulse">
+            <Button variant="primary" size="lg" as="a" href="#cta" className="animate-glow-pulse max-[980px]:w-full">
               Iniciar um projeto
             </Button>
-            <Button variant="secondary" size="lg" as="a" href="#portfolio" iconLeft={<Icon name="play" size={16} />}>
+            <Button variant="secondary" size="lg" as="a" href="#portfolio" iconLeft={<Icon name="play" size={16} />} className="max-[980px]:w-full">
               Ver nosso trabalho
             </Button>
           </div>

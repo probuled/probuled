@@ -25,16 +25,18 @@ export function Footer() {
     >
       {/* Top strip — tagline */}
       <div className="w-full border-b border-white/[0.06]">
-        <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-          <p className="font-display font-bold text-[clamp(1.25rem,2.5vw,1.75rem)] text-white leading-tight max-w-[24ch]">
-            Built pro, <span className="text-grad-light">delivered right.</span>
-          </p>
-          <a
-            href="#cta"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#534AB7] hover:bg-[#6560C8] text-white font-semibold text-sm [transition:background_150ms_ease] shrink-0"
-          >
-            Iniciar um projeto
-          </a>
+        <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-10 flex flex-col items-center text-center gap-6 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <div className="flex flex-col items-stretch gap-6 w-fit sm:contents">
+            <p className="font-display font-bold text-[clamp(1.25rem,2.5vw,1.75rem)] text-white leading-tight max-w-[24ch]">
+              Built pro, <span className="text-grad-light">delivered right.</span>
+            </p>
+            <a
+              href="#cta"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-lg bg-[#534AB7] hover:bg-[#6560C8] text-white font-semibold text-[0.8rem] [transition:background_150ms_ease] shrink-0"
+            >
+              Iniciar um projeto
+            </a>
+          </div>
         </div>
       </div>
 
@@ -42,8 +44,8 @@ export function Footer() {
       <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-14">
         <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr] gap-12">
           {/* Brand column */}
-          <div className="flex flex-col gap-6">
-            <a href="#" className="w-fit -ml-6 -mt-10 sm:-ml-10 sm:-mt-16">
+          <div className="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
+            <a href="#" className="w-fit ml-0 -mt-10 sm:-ml-10 sm:-mt-16">
               <img
                 src="/assets/logo/probuled-horizontal-sem-fundo.png"
                 alt="ProBuled — Built pro, delivered right"
@@ -95,7 +97,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/[0.06]">
-        <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-5 flex items-center justify-between flex-wrap gap-4 text-[0.8rem] text-white/25">
+        <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-5 flex flex-col items-center text-center gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left text-[0.8rem] text-white/25">
           <span>© 2026 ProBuled. Todos os direitos reservados.</span>
           <div className="flex items-center gap-5">
             <a
