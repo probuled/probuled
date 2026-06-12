@@ -488,7 +488,18 @@ export function IniciarProjetoPage() {
   }
 
   return (
-    <main className="min-h-screen pt-[74px] bg-[#F1EFE8]">
+    <main className="min-h-screen bg-[#F1EFE8]">
+      <header className="flex justify-center py-6 border-b border-[#E4E1D6]">
+        <a href="/" className="flex items-center gap-[0.7rem] font-display font-bold text-[1.35rem] tracking-[-0.02em]">
+          <img
+            src="/assets/logo/probuled-mark.png"
+            alt="ProBuled"
+            className="w-[38px] h-[38px] rounded-[10px] shadow-sm"
+          />
+          <span className="text-[#2C2763]">ProBuled</span>
+        </a>
+      </header>
+
       {submitted ? (
         <SuccessState />
       ) : (

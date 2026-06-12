@@ -1,18 +1,8 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { Nav } from "@/widgets/nav";
-import { Footer } from "@/widgets/footer";
 import { Button } from "@/shared/ui";
-import { useReveal } from "@/shared/hooks";
 
 function RootLayout() {
-  useReveal();
-  return (
-    <>
-      <Nav />
-      <Outlet />
-      <Footer />
-    </>
-  );
+  return <Outlet />;
 }
 
 function RootError({ error }: { error: Error }) {
