@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import {
-  Check, ArrowRight, ChevronLeft, Zap, Shield, Rocket,
+  Check, ArrowRight, ChevronLeft, ChevronDown, Zap, Shield, Rocket,
   Layers, CheckCircle, ArrowUpRight,
 } from 'lucide-react';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 import { Button }   from '@/components/ui/button';
 import { Input }    from '@/components/ui/input';
@@ -11,22 +13,49 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
+  Field, FieldGroup, FieldLabel, FieldSet, FieldLegend,
+} from '@/components/ui/field';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 type Step = 1 | 2 | 3;
 
 interface FormData {
   razaoSocial:      string;
+  tipoCpfCnpj:      'cpf' | 'cnpj';
   cpfCnpj:          string;
   endereco:         string;
   telefone:         string;
   email:            string;
   descricaoServico: string;
   urlSite:          string;
-  dataEntrega:      string;
+  dataEntrega:      Date | undefined;
   formaPagamento:   '' | 'a-vista' | 'parcelado';
   numeroParcelas:   '' | '1' | '2';
+}
+
+function maskCpf(value: string): string {
+  const d = value.replace(/\D/g, '').slice(0, 11);
+  if (d.length <= 3) return d;
+  if (d.length <= 6) return `${d.slice(0,3)}.${d.slice(3)}`;
+  if (d.length <= 9) return `${d.slice(0,3)}.${d.slice(3,6)}.${d.slice(6)}`;
+  return `${d.slice(0,3)}.${d.slice(3,6)}.${d.slice(6,9)}-${d.slice(9)}`;
+}
+
+function maskCnpj(value: string): string {
+  const d = value.replace(/\D/g, '').slice(0, 14);
+  if (d.length <= 2)  return d;
+  if (d.length <= 5)  return `${d.slice(0,2)}.${d.slice(2)}`;
+  if (d.length <= 8)  return `${d.slice(0,2)}.${d.slice(2,5)}.${d.slice(5)}`;
+  if (d.length <= 12) return `${d.slice(0,2)}.${d.slice(2,5)}.${d.slice(5,8)}/${d.slice(8)}`;
+  return `${d.slice(0,2)}.${d.slice(2,5)}.${d.slice(5,8)}/${d.slice(8,12)}-${d.slice(12)}`;
+}
+
+function maskPhone(value: string): string {
+  const d = value.replace(/\D/g, '').slice(0, 11);
+  if (d.length <= 2)  return `(${d}`;
+  if (d.length <= 7)  return `(${d.slice(0,2)}) ${d.slice(2)}`;
+  return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
 }
 
 const STEPS = [
@@ -229,13 +258,16 @@ function StepContrato({
   );
 }
 
+const sectionLabelClass = 'text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground';
+
 function StepForm({
-  form, onChange, onBack, onSubmit,
+  form, onChange, onDateChange, onBack, onSubmit,
 }: {
-  form:     FormData;
-  onChange: (name: keyof FormData, value: string) => void;
-  onBack:   () => void;
-  onSubmit: (e: React.FormEvent) => void;
+  form:           FormData;
+  onChange:       (name: keyof FormData, value: string) => void;
+  onDateChange:   (date: Date | undefined) => void;
+  onBack:         () => void;
+  onSubmit:       (e: React.FormEvent) => void;
 }) {
   return (
     <form onSubmit={onSubmit} className="space-y-8">
@@ -248,11 +280,11 @@ function StepForm({
         </p>
       </div>
 
-      <section className="space-y-4">
-        <h3 className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground">Identificação</h3>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="razaoSocial">Razão Social / Nome completo *</Label>
+      <FieldSet className="space-y-4">
+        <FieldLegend className={sectionLabelClass}>Identificação</FieldLegend>
+        <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field className="gap-1.5">
+            <FieldLabel htmlFor="razaoSocial">Razão Social / Nome completo *</FieldLabel>
             <Input
               id="razaoSocial"
               placeholder="Ex: João Silva ou Silva &amp; Cia Ltda"
@@ -260,20 +292,55 @@ function StepForm({
               value={form.razaoSocial}
               onChange={(e) => onChange('razaoSocial', e.target.value)}
             />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="cpfCnpj">CPF ou CNPJ *</Label>
+          </Field>
+          <Field className="gap-2">
+            <FieldLabel>CPF ou CNPJ *</FieldLabel>
+            <RadioGroup
+              value={form.tipoCpfCnpj}
+              onValueChange={(v) => onChange('tipoCpfCnpj', v)}
+              className="grid grid-cols-2 gap-2"
+            >
+              {([
+                { value: 'cpf',  label: 'CPF',  sub: 'Pessoa física'   },
+                { value: 'cnpj', label: 'CNPJ', sub: 'Pessoa jurídica' },
+              ] as const).map(({ value, label, sub }) => {
+                const selected = form.tipoCpfCnpj === value;
+                return (
+                  <Label
+                    key={value}
+                    htmlFor={`tipo-${value}`}
+                    className={cn(
+                      'flex flex-col items-center gap-0.5 p-3 rounded-xl border-2 cursor-pointer transition-all font-normal',
+                      selected
+                        ? 'border-primary bg-accent'
+                        : 'border-border bg-card hover:border-primary/40'
+                    )}
+                  >
+                    <RadioGroupItem value={value} id={`tipo-${value}`} className="sr-only" />
+                    <span className={cn('font-semibold text-sm', selected ? 'text-accent-foreground' : 'text-foreground')}>
+                      {label}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{sub}</span>
+                  </Label>
+                );
+              })}
+            </RadioGroup>
             <Input
               id="cpfCnpj"
-              placeholder="000.000.000-00"
+              placeholder={form.tipoCpfCnpj === 'cpf' ? '000.000.000-00' : '00.000.000/0000-00'}
               required
               value={form.cpfCnpj}
-              onChange={(e) => onChange('cpfCnpj', e.target.value)}
+              onChange={(e) => {
+                const masked = form.tipoCpfCnpj === 'cpf'
+                  ? maskCpf(e.target.value)
+                  : maskCnpj(e.target.value);
+                onChange('cpfCnpj', masked);
+              }}
             />
-          </div>
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="endereco">Endereço completo *</Label>
+          </Field>
+        </FieldGroup>
+        <Field className="gap-1.5">
+          <FieldLabel htmlFor="endereco">Endereço completo *</FieldLabel>
           <Input
             id="endereco"
             placeholder="Rua, número, bairro, cidade, estado, CEP"
@@ -281,25 +348,25 @@ function StepForm({
             value={form.endereco}
             onChange={(e) => onChange('endereco', e.target.value)}
           />
-        </div>
-      </section>
+        </Field>
+      </FieldSet>
 
-      <section className="space-y-4">
-        <h3 className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground">Contato</h3>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="telefone">Telefone *</Label>
+      <FieldSet className="space-y-4">
+        <FieldLegend className={sectionLabelClass}>Contato</FieldLegend>
+        <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field className="gap-1.5">
+            <FieldLabel htmlFor="telefone">Telefone *</FieldLabel>
             <Input
               id="telefone"
               type="tel"
               placeholder="(11) 99999-9999"
               required
               value={form.telefone}
-              onChange={(e) => onChange('telefone', e.target.value)}
+              onChange={(e) => onChange('telefone', maskPhone(e.target.value))}
             />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="email">E-mail *</Label>
+          </Field>
+          <Field className="gap-1.5">
+            <FieldLabel htmlFor="email">E-mail *</FieldLabel>
             <Input
               id="email"
               type="email"
@@ -308,14 +375,14 @@ function StepForm({
               value={form.email}
               onChange={(e) => onChange('email', e.target.value)}
             />
-          </div>
-        </div>
-      </section>
+          </Field>
+        </FieldGroup>
+      </FieldSet>
 
-      <section className="space-y-4">
-        <h3 className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground">Projeto</h3>
-        <div className="space-y-1.5">
-          <Label htmlFor="descricaoServico">Descrição do serviço *</Label>
+      <FieldSet className="space-y-4">
+        <FieldLegend className={sectionLabelClass}>Projeto</FieldLegend>
+        <Field className="gap-1.5">
+          <FieldLabel htmlFor="descricaoServico">Descrição do serviço *</FieldLabel>
           <Textarea
             id="descricaoServico"
             rows={4}
@@ -324,45 +391,63 @@ function StepForm({
             value={form.descricaoServico}
             onChange={(e) => onChange('descricaoServico', e.target.value)}
           />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="urlSite">
+        </Field>
+        <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field className="gap-1.5">
+            <FieldLabel htmlFor="urlSite">
               URL ou nome do site{' '}
               <span className="font-normal text-muted-foreground">(opcional)</span>
-            </Label>
+            </FieldLabel>
             <Input
               id="urlSite"
               placeholder="Ex: meusite.com.br"
               value={form.urlSite}
               onChange={(e) => onChange('urlSite', e.target.value)}
             />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="dataEntrega">Data de entrega desejada *</Label>
-            <Input
-              id="dataEntrega"
-              type="date"
-              required
-              value={form.dataEntrega}
-              onChange={(e) => onChange('dataEntrega', e.target.value)}
-            />
-          </div>
-        </div>
-      </section>
+          </Field>
+          <Field className="gap-1.5">
+            <FieldLabel>Data de entrega desejada *</FieldLabel>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    'w-full justify-between text-left font-normal bg-card border-input',
+                    form.dataEntrega ? 'text-foreground' : 'text-muted-foreground'
+                  )}
+                >
+                  {form.dataEntrega
+                    ? format(form.dataEntrega, 'PPP', { locale: ptBR })
+                    : 'Selecione uma data'}
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={form.dataEntrega}
+                  onSelect={onDateChange}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </Field>
+        </FieldGroup>
+      </FieldSet>
 
-      <section className="space-y-4">
-        <h3 className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground">Pagamento</h3>
-        <div className="space-y-1.5">
-          <Label>Forma de pagamento *</Label>
+      <FieldSet className="space-y-4">
+        <FieldLegend className={sectionLabelClass}>Pagamento</FieldLegend>
+        <Field className="gap-2">
+          <FieldLabel>Forma de pagamento *</FieldLabel>
           <RadioGroup
             value={form.formaPagamento}
             onValueChange={(v) => onChange('formaPagamento', v as FormData['formaPagamento'])}
-            className="grid grid-cols-2 gap-3"
+            className="grid grid-cols-2 gap-2"
           >
             {([
-              { value: 'a-vista',   label: 'À Vista',   sub: undefined                },
-              { value: 'parcelado', label: 'Parcelado', sub: '30% entrada + parcelas' },
+              { value: 'a-vista',   label: 'À Vista',   sub: 'Pagamento único'         },
+              { value: 'parcelado', label: 'Parcelado', sub: '30% entrada + parcelas'  },
             ] as const).map(({ value, label, sub }) => {
               const selected = form.formaPagamento === value;
               return (
@@ -370,7 +455,7 @@ function StepForm({
                   key={value}
                   htmlFor={`pay-${value}`}
                   className={cn(
-                    'flex flex-col gap-0.5 p-4 rounded-xl border-2 cursor-pointer transition-all font-normal',
+                    'flex flex-col items-center gap-0.5 p-3 rounded-xl border-2 cursor-pointer transition-all font-normal',
                     selected
                       ? 'border-primary bg-accent'
                       : 'border-border bg-card hover:border-primary/40'
@@ -380,31 +465,49 @@ function StepForm({
                   <span className={cn('font-semibold text-sm', selected ? 'text-accent-foreground' : 'text-foreground')}>
                     {label}
                   </span>
-                  {sub && <span className="text-xs text-muted-foreground">{sub}</span>}
+                  <span className="text-xs text-muted-foreground">{sub}</span>
                 </Label>
               );
             })}
           </RadioGroup>
-        </div>
+        </Field>
 
         {form.formaPagamento === 'parcelado' && (
-          <div className="space-y-1.5">
-            <Label htmlFor="numeroParcelas">Número de parcelas *</Label>
-            <Select
+          <Field className="gap-2">
+            <FieldLabel>Número de parcelas *</FieldLabel>
+            <RadioGroup
               value={form.numeroParcelas}
               onValueChange={(v) => onChange('numeroParcelas', v as FormData['numeroParcelas'])}
+              className="grid grid-cols-2 gap-2"
             >
-              <SelectTrigger id="numeroParcelas">
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">1 parcela</SelectItem>
-                <SelectItem value="2">2 parcelas</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              {([
+                { value: '1', label: '1 parcela',  sub: '30% + 70% na entrega' },
+                { value: '2', label: '2 parcelas', sub: '30% + 35% + 35%'      },
+              ] as const).map(({ value, label, sub }) => {
+                const selected = form.numeroParcelas === value;
+                return (
+                  <Label
+                    key={value}
+                    htmlFor={`parcela-${value}`}
+                    className={cn(
+                      'flex flex-col items-center gap-0.5 p-3 rounded-xl border-2 cursor-pointer transition-all font-normal',
+                      selected
+                        ? 'border-primary bg-accent'
+                        : 'border-border bg-card hover:border-primary/40'
+                    )}
+                  >
+                    <RadioGroupItem value={value} id={`parcela-${value}`} className="sr-only" />
+                    <span className={cn('font-semibold text-sm', selected ? 'text-accent-foreground' : 'text-foreground')}>
+                      {label}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{sub}</span>
+                  </Label>
+                );
+              })}
+            </RadioGroup>
+          </Field>
         )}
-      </section>
+      </FieldSet>
 
       <div className="flex items-center justify-between gap-4 pt-2">
         <Button variant="ghost" onClick={onBack} type="button">
@@ -447,19 +550,23 @@ export function IniciarProjetoPage() {
   const [submitted,       setSubmitted]       = useState(false);
   const [form,            setForm]            = useState<FormData>({
     razaoSocial:      '',
+    tipoCpfCnpj:      'cpf',
     cpfCnpj:          '',
     endereco:         '',
     telefone:         '',
     email:            '',
     descricaoServico: '',
     urlSite:          '',
-    dataEntrega:      '',
+    dataEntrega:      undefined,
     formaPagamento:   '',
     numeroParcelas:   '',
   });
 
   function onChange(name: keyof FormData, value: string) {
-    setForm(f => ({ ...f, [name]: value }));
+    setForm(f => {
+      if (name === 'tipoCpfCnpj') return { ...f, tipoCpfCnpj: value as 'cpf' | 'cnpj', cpfCnpj: '' };
+      return { ...f, [name]: value };
+    });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -472,13 +579,13 @@ export function IniciarProjetoPage() {
       : '';
     const body = [
       `Razão Social / Nome: ${form.razaoSocial}`,
-      `CPF / CNPJ: ${form.cpfCnpj}`,
+      `${form.tipoCpfCnpj.toUpperCase()}: ${form.cpfCnpj}`,
       `Endereço: ${form.endereco}`,
       `Telefone: ${form.telefone}`,
       `E-mail: ${form.email}`,
       `Descrição do serviço: ${form.descricaoServico}`,
       `URL / Nome do site: ${form.urlSite || 'Não definida'}`,
-      `Data de entrega: ${form.dataEntrega}`,
+      `Data de entrega: ${form.dataEntrega ? format(form.dataEntrega, 'dd/MM/yyyy') : 'Não definida'}`,
       `Forma de pagamento: ${form.formaPagamento === 'a-vista' ? 'À Vista' : 'Parcelado (30% entrada + parcelas)'}`,
       parcelas,
     ].filter(Boolean).join('\n');
@@ -528,6 +635,7 @@ export function IniciarProjetoPage() {
             <StepForm
               form={form}
               onChange={onChange}
+              onDateChange={(date) => setForm(f => ({ ...f, dataEntrega: date }))}
               onBack={() => setStep(2)}
               onSubmit={handleSubmit}
             />
