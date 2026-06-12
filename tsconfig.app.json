@@ -18,10 +18,12 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/app/*":     ["src/app/*"],
-      "@/pages/*":   ["src/pages/*"],
-      "@/widgets/*": ["src/widgets/*"],
-      "@/shared/*":  ["src/shared/*"]
+      "@/app/*":        ["src/app/*"],
+      "@/pages/*":      ["src/pages/*"],
+      "@/widgets/*":    ["src/widgets/*"],
+      "@/shared/*":     ["src/shared/*"],
+      "@/components/*": ["src/components/*"],
+      "@/lib/*":        ["src/lib/*"]
     }
   },
   "include": ["src"]

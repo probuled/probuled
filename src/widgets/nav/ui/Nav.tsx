@@ -36,7 +36,7 @@ export function Nav() {
 
         <div className="flex items-center gap-[0.8rem]">
           <Button variant="ghost" size="sm" as="a" href="#top">Entrar</Button>
-          <Button variant="primary" size="sm" as="a" href="#cta" iconRight={<Icon name="arrow-right" size={16} />}>
+          <Button variant="primary" size="sm" as="a" href="/iniciar-projeto" iconRight={<Icon name="arrow-right" size={16} />}>
             Iniciar um projeto
           </Button>
         </div>

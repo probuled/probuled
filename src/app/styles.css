@@ -5,6 +5,29 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background:            46 24% 93%;
+    --foreground:            60 2% 17%;
+    --card:                  0 0% 100%;
+    --card-foreground:       60 2% 17%;
+    --popover:               0 0% 100%;
+    --popover-foreground:    60 2% 17%;
+    --primary:               245 43% 50%;
+    --primary-foreground:    0 0% 100%;
+    --secondary:             47 21% 87%;
+    --secondary-foreground:  60 2% 17%;
+    --muted:                 47 21% 87%;
+    --muted-foreground:      46 7% 48%;
+    --accent:                245 90% 96%;
+    --accent-foreground:     245 44% 42%;
+    --destructive:           0 84% 60%;
+    --destructive-foreground:0 0% 100%;
+    --border:                46 15% 78%;
+    --input:                 46 15% 78%;
+    --ring:                  245 43% 50%;
+    --radius:                0.75rem;
+  }
+
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   html, body { margin: 0; }

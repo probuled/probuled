@@ -14,7 +14,7 @@ export function CTA() {
             Conte o que você quer lançar. Respondemos em até um dia com um plano, um cronograma e um primeiro marco fechado.
           </p>
           <div className="relative z-[1] flex gap-4 justify-center flex-wrap">
-            <Button variant="inverse" size="lg" as="a" href="#top" iconRight={<Icon name="arrow-right" size={18} />}>
+            <Button variant="inverse" size="lg" as="a" href="/iniciar-projeto" iconRight={<Icon name="arrow-right" size={18} />}>
               Iniciar um projeto
             </Button>
             <Button variant="ghost" size="lg" as="a" href="#top" style={{ color: '#fff' }} iconLeft={<Icon name="mail" size={18} />}>
