@@ -40,6 +40,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -355,8 +356,8 @@ function SectionLegend({
   children: React.ReactNode;
 }) {
   return (
-    <FieldLegend className="flex items-center gap-2.5 mb-4 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#157E5E]">
-      <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-[#EEEDFE] text-[#534AB7]">
+    <FieldLegend className="flex items-center gap-3 mb-4 text-[0.92rem] font-bold uppercase tracking-[0.16em] text-[#157E5E]">
+      <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-[#EEEDFE] text-[#534AB7]">
         {icon}
       </span>
       {children}
@@ -399,7 +400,7 @@ function StepForm({
 
       <Card className="border-[#E4E1D6] p-6 sm:p-7 space-y-8">
         <FieldSet>
-          <SectionLegend icon={<User size={14} />}>Identificação</SectionLegend>
+          <SectionLegend icon={<User size={18} />}>Identificação</SectionLegend>
           <FieldGroup className="gap-4">
             <Field>
               <FieldLabel htmlFor="razaoSocial">
@@ -465,8 +466,10 @@ function StepForm({
           </FieldGroup>
         </FieldSet>
 
+        <Separator className="bg-[#E4E1D6]" />
+
         <FieldSet>
-          <SectionLegend icon={<Mail size={14} />}>Contato</SectionLegend>
+          <SectionLegend icon={<Mail size={18} />}>Contato</SectionLegend>
           <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field>
               <FieldLabel htmlFor="telefone">Telefone</FieldLabel>
@@ -495,8 +498,10 @@ function StepForm({
           </FieldGroup>
         </FieldSet>
 
+        <Separator className="bg-[#E4E1D6]" />
+
         <FieldSet>
-          <SectionLegend icon={<Layers size={14} />}>Projeto</SectionLegend>
+          <SectionLegend icon={<Layers size={18} />}>Projeto</SectionLegend>
           <FieldGroup className="gap-4">
             <Field>
               <FieldLabel htmlFor="descricaoServico">
@@ -558,8 +563,10 @@ function StepForm({
           </FieldGroup>
         </FieldSet>
 
+        <Separator className="bg-[#E4E1D6]" />
+
         <FieldSet>
-          <SectionLegend icon={<CreditCard size={14} />}>
+          <SectionLegend icon={<CreditCard size={18} />}>
             Pagamento
           </SectionLegend>
           <FieldGroup className="gap-4">
@@ -574,13 +581,13 @@ function StepForm({
                 <Field orientation="horizontal" className="gap-3">
                   <RadioGroupItem value="a-vista" id="pay-a-vista" />
                   <FieldLabel htmlFor="pay-a-vista" className="font-normal">
-                    À Vista — pagamento único
+                    À Vista - pagamento único
                   </FieldLabel>
                 </Field>
                 <Field orientation="horizontal" className="gap-3">
                   <RadioGroupItem value="parcelado" id="pay-parcelado" />
                   <FieldLabel htmlFor="pay-parcelado" className="font-normal">
-                    Parcelado — 30% de entrada + parcelas
+                    Parcelado - 30% de entrada + parcelas
                   </FieldLabel>
                 </Field>
               </RadioGroup>
@@ -602,10 +609,10 @@ function StepForm({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="1">
-                      1 parcela — 30% + 70% na entrega
+                      1 parcela - 30% + 70% na entrega
                     </SelectItem>
                     <SelectItem value="2">
-                      2 parcelas — 30% + 35% + 35%
+                      2 parcelas - 30% + 35% + 35%
                     </SelectItem>
                   </SelectContent>
                 </Select>
