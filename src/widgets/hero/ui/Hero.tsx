@@ -36,7 +36,7 @@ export function Hero() {
           </p>
 
           <div className="enter flex flex-wrap gap-4 mt-[2.2rem]" data-d="4">
-            <Button variant="primary" size="lg" as="a" href="#cta">
+            <Button variant="primary" size="lg" as="a" href="#cta" className="animate-glow-pulse">
               Iniciar um projeto
             </Button>
             <Button variant="secondary" size="lg" as="a" href="#portfolio" iconLeft={<Icon name="play" size={16} />}>
