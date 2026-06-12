@@ -1,8 +1,27 @@
-import type { Step } from './process.types';
+import type { Step } from "./process.types";
 
 export const STEPS: Step[] = [
-  { number: '01', title: 'Discover', description: "We map the problem, scope tightly and agree on what 'done' looks like." },
-  { number: '02', title: 'Design',   description: 'Flows and UI in our system, validated against real users early.' },
-  { number: '03', title: 'Build',    description: 'Senior engineers ship in weekly increments you can see and use.' },
-  { number: '04', title: 'Deliver',  description: 'Tested, deployed and documented — handed over with code you own.' },
+  {
+    number: "01",
+    title: "Descoberta",
+    description:
+      "Mapeamos o problema, definimos o escopo com precisão e alinhamos o que significa 'pronto'.",
+  },
+  {
+    number: "02",
+    title: "Design",
+    description:
+      "Fluxos e interface no nosso sistema, validados com usuários reais desde cedo.",
+  },
+  {
+    number: "03",
+    title: "Desenvolvimento",
+    description: "Incrementos semanais que você pode ver, testar e usar.",
+  },
+  {
+    number: "04",
+    title: "Entrega",
+    description:
+      "Testado, deployado e documentado, entregue com código que é seu.",
+  },
 ];

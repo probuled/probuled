@@ -7,7 +7,7 @@ export function HeroCodeCard() {
         <span className="w-[34px] h-[34px] rounded-[9px] bg-teal-50 text-teal-600 flex items-center justify-center">
           <Icon name="check-circle" size={20} />
         </span>
-        Deployed in 6 weeks
+        Entregue em 6 semanas
       </div>
 
       <div className="codecard bg-[#211D44] rounded-xl shadow-[0_40px_90px_-30px_rgba(44,28,90,0.6)] border border-[rgba(238,237,254,0.1)] overflow-hidden [transform:perspective(1400px)_rotateY(-9deg)_rotateX(4deg)] [transition:transform_420ms_cubic-bezier(0.16,1,0.3,1)] hover:[transform:perspective(1400px)_rotateY(-3deg)_rotateX(1deg)]">
@@ -15,7 +15,7 @@ export function HeroCodeCard() {
           <span className="w-[11px] h-[11px] rounded-full bg-[#ED6A5E]" />
           <span className="w-[11px] h-[11px] rounded-full bg-[#F5BF4F]" />
           <span className="w-[11px] h-[11px] rounded-full bg-[#61C554]" />
-          <span className="ml-[0.7rem] font-mono text-[12px] text-[rgba(238,237,254,0.6)]">App.tsx — probuled</span>
+          <span className="ml-[0.7rem] font-mono text-[12px] text-[rgba(238,237,254,0.6)]">App.tsx · probuled</span>
         </div>
         <div className="px-6 pt-[1.3rem] pb-[1.7rem] font-mono text-[13.5px] leading-[1.85] text-[#CFCBE8]">
           <span className="block whitespace-pre"><span className="text-[#6E6A90]">// shipped, typed and tested</span></span>
@@ -35,7 +35,7 @@ export function HeroCodeCard() {
         <span className="w-[34px] h-[34px] rounded-[9px] bg-purple-100 text-purple-600 flex items-center justify-center">
           <Icon name="gauge" size={20} />
         </span>
-        99.9% uptime
+        99,9% de uptime
       </div>
     </div>
   );
