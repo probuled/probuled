@@ -15,4 +15,11 @@ export const PROJECTS: Project[] = [
     url: "https://torres-barros.vercel.app/",
     tags: ["Landing Page"],
   },
+  {
+    id: 3,
+    title: "Água Pontual",
+    description: "Landing page para empresa de abastecimento de água",
+    url: "https://agua-pontual.vercel.app/",
+    tags: ["Landing Page"],
+  },
 ];
