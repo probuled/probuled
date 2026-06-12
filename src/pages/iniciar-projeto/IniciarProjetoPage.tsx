@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   User,
   CreditCard,
+  Loader2,
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -46,6 +47,7 @@ import {
   minDeliveryDate,
   type ProjetoFieldErrors,
 } from "./projeto.schema";
+import { SOCIAL_NETWORKS } from "@/widgets/social-follow/social-follow.constants";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -381,6 +383,8 @@ function Req() {
 function StepForm({
   form,
   errors,
+  sending,
+  sendError,
   onChange,
   onDateChange,
   onBack,
@@ -388,6 +392,8 @@ function StepForm({
 }: {
   form: FormData;
   errors: ProjetoFieldErrors;
+  sending: boolean;
+  sendError: string | null;
   onChange: (name: keyof FormData, value: string) => void;
   onDateChange: (date: Date | undefined) => void;
   onBack: () => void;
@@ -705,11 +711,21 @@ function StepForm({
         </div>
       </div>
 
+      {sendError && (
+        <div
+          role="alert"
+          className="rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive"
+        >
+          {sendError}
+        </div>
+      )}
+
       <div className="flex items-center justify-between gap-4">
         <Button
           variant="ghost"
           onClick={onBack}
           type="button"
+          disabled={sending}
           className="text-[#534AB7] hover:bg-[#EEEDFE] hover:text-[#443C9C]"
         >
           <ChevronLeft size={18} />
@@ -718,10 +734,20 @@ function StepForm({
         <Button
           size="lg"
           type="submit"
-          className="bg-[#534AB7] hover:bg-[#443C9C] text-white shadow-brand font-display"
+          disabled={sending}
+          className="bg-[#534AB7] hover:bg-[#443C9C] text-white shadow-brand font-display disabled:opacity-70"
         >
-          Enviar proposta
-          <ArrowRight size={18} />
+          {sending ? (
+            <>
+              <Loader2 size={18} className="animate-spin" />
+              Enviando...
+            </>
+          ) : (
+            <>
+              Enviar proposta
+              <ArrowRight size={18} />
+            </>
+          )}
         </Button>
       </div>
     </form>
@@ -730,19 +756,57 @@ function StepForm({
 
 function SuccessState() {
   return (
-    <div className="py-24 flex flex-col items-center text-center max-w-[480px] mx-auto">
-      <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center mb-6">
-        <CheckCircle size={40} className="text-foreground" />
+    <div className="shadcn-scope py-20 flex flex-col items-center text-center max-w-[520px] mx-auto px-[clamp(1.25rem,4vw,2rem)]">
+      <div className="w-20 h-20 rounded-full bg-[#E3F5EE] flex items-center justify-center mb-6 ring-8 ring-[#EDF9F4]">
+        <CheckCircle size={40} className="text-[#1D9E75]" />
       </div>
-      <h1 className="text-3xl font-semibold tracking-tight">
-        Proposta enviada!
+      <h1 className="font-display font-bold tracking-[-0.025em] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
+        Email enviado!
       </h1>
-      <p className="mt-3 text-muted-foreground max-w-[40ch] mx-auto">
-        A ProBuled vai analisar seu projeto e responder em até 1 dia útil com um
-        plano e cronograma.
+
+      <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#D9D6F6] bg-[#EEEDFE] px-4 py-2 text-sm text-[#38317E]">
+        <Mail size={16} className="text-[#534AB7]" />
+        Enviado para{" "}
+        <span className="font-semibold text-[#534AB7]">probuled@gmail.com</span>
+      </div>
+
+      <p className="mt-5 text-[#424039] leading-relaxed max-w-[42ch]">
+        Recebemos os dados do seu projeto. A ProBuled vai analisar e responder em
+        até 1 dia útil com plano, cronograma e proposta detalhada.
       </p>
-      <div className="mt-8">
-        <Button asChild>
+
+      {/* Mais contato — redes sociais */}
+      <div className="mt-10 w-full">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#157E5E] mb-4">
+          Para mais contato
+        </p>
+        <div className="flex items-center justify-center gap-3">
+          {SOCIAL_NETWORKS.map(({ label, href, Icon, theme }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              title={label}
+              className="group inline-flex items-center justify-center w-12 h-12 rounded-xl border bg-white shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md"
+              style={{ borderColor: theme.borderColor }}
+            >
+              <Icon
+                size={22}
+                style={{ color: theme.ctaColor }}
+                className="transition-transform group-hover:scale-110"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <Button
+          asChild
+          className="bg-[#534AB7] hover:bg-[#443C9C] text-white shadow-brand font-display"
+        >
           <a href="/">Voltar ao início</a>
         </Button>
       </div>
@@ -759,6 +823,8 @@ export function IniciarProjetoPage() {
     false,
   ]);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [errors, setErrors] = useState<ProjetoFieldErrors>({});
   const [form, setForm] = useState<FormData>({
     razaoSocial: "",
@@ -793,7 +859,7 @@ export function IniciarProjetoPage() {
     });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const result = projetoSchema.safeParse(form);
@@ -812,27 +878,58 @@ export function IniciarProjetoPage() {
     setErrors({});
     const data = result.data;
 
-    const parcelas =
-      data.formaPagamento === "parcelado"
-        ? `Número de Parcelas: ${data.numeroParcelas}\n`
-        : "";
-    const body = [
-      `Razão Social / Nome: ${data.razaoSocial}`,
-      `${data.tipoCpfCnpj.toUpperCase()}: ${data.cpfCnpj}`,
-      `Endereço: ${data.endereco}`,
-      `Telefone: ${data.telefone}`,
-      `E-mail: ${data.email}`,
-      `Descrição do serviço: ${data.descricaoServico}`,
-      `URL / Nome do site: ${data.urlSite || "Não definida"}`,
-      `Data de entrega: ${format(data.dataEntrega, "dd/MM/yyyy")}`,
-      `Forma de pagamento: ${data.formaPagamento === "a-vista" ? "À Vista" : "Parcelado (30% entrada + parcelas)"}`,
-      parcelas,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setSendError(
+        "Envio não configurado. Defina VITE_WEB3FORMS_ACCESS_KEY no .env.",
+      );
+      return;
+    }
 
-    window.location.href = `mailto:probuled@gmail.com?subject=${encodeURIComponent(`Novo Projeto – ${data.razaoSocial}`)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    const payload = {
+      access_key: accessKey,
+      subject: `Novo Projeto – ${data.razaoSocial}`,
+      from_name: "Formulário ProBuled",
+      "Razão Social / Nome": data.razaoSocial,
+      [data.tipoCpfCnpj.toUpperCase()]: data.cpfCnpj,
+      Endereço: data.endereco,
+      Telefone: data.telefone,
+      "E-mail do cliente": data.email,
+      "Descrição do serviço": data.descricaoServico,
+      "URL / Nome do site": data.urlSite || "Não definida",
+      "Data de entrega": format(data.dataEntrega, "dd/MM/yyyy"),
+      "Forma de pagamento":
+        data.formaPagamento === "a-vista"
+          ? "À Vista"
+          : "Parcelado (30% entrada + parcelas)",
+      ...(data.formaPagamento === "parcelado"
+        ? { "Número de parcelas": data.numeroParcelas }
+        : {}),
+    };
+
+    setSending(true);
+    setSendError(null);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const json = (await res.json()) as { success: boolean; message?: string };
+      if (!res.ok || !json.success) {
+        throw new Error(json.message ?? "Falha no envio");
+      }
+      setSubmitted(true);
+    } catch {
+      setSendError(
+        "Não foi possível enviar agora. Verifique sua conexão e tente novamente.",
+      );
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -883,6 +980,8 @@ export function IniciarProjetoPage() {
             <StepForm
               form={form}
               errors={errors}
+              sending={sending}
+              sendError={sendError}
               onChange={onChange}
               onDateChange={(date) => {
                 clearError("dataEntrega");
