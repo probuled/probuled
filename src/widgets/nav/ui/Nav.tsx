@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/shared/ui';
 import { Icon }   from '@/shared/ui';
 import { useScrolled }  from '@/shared/hooks';
+import { handleAnchorClick } from '@/shared/lib/scrollToAnchor';
 import { NAV_LINKS } from '../nav.constants';
 
 export function Nav() {
@@ -23,7 +24,7 @@ export function Nav() {
         <a
           className="flex items-center gap-[0.7rem] font-display font-bold text-[clamp(1.1rem,4vw,1.35rem)] tracking-[-0.02em]"
           href="#top"
-          onClick={() => setOpen(false)}
+          onClick={(e) => { handleAnchorClick(e); setOpen(false); }}
         >
           <img
             src="/assets/logo/probuled-mark.png"
@@ -35,13 +36,13 @@ export function Nav() {
 
         <div className="nav-links flex items-center gap-8">
           {NAV_LINKS.map(([href, label]) => (
-            <a key={href} href={href} className="nav-link">{label}</a>
+            <a key={href} href={href} className="nav-link" onClick={handleAnchorClick}>{label}</a>
           ))}
         </div>
 
         <div className="flex items-center gap-[0.8rem]">
           <div className="nav-cta-desktop flex items-center">
-            <Button variant="primary" size="sm" as="a" href="#cta">
+            <Button variant="primary" size="sm" as="a" href="#cta" onClick={handleAnchorClick}>
               Iniciar um projeto
             </Button>
           </div>
@@ -73,7 +74,7 @@ export function Nav() {
               key={href}
               href={href}
               className="nav-link py-3 text-[1.05rem] border-b border-[#E4E1D6]/60 last:border-b-0"
-              onClick={() => setOpen(false)}
+              onClick={(e) => { handleAnchorClick(e); setOpen(false); }}
             >
               {label}
             </a>
@@ -85,7 +86,7 @@ export function Nav() {
             href="#cta"
             block
             className="mt-4 mb-1"
-            onClick={() => setOpen(false)}
+            onClick={(e) => { handleAnchorClick(e); setOpen(false); }}
           >
             Iniciar um projeto
           </Button>
