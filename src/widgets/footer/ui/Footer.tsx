@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
 import { LegalModal } from "../../../shared/ui/LegalModal";
+import { handleAnchorClick } from "@/shared/lib/scrollToAnchor";
 import { COLS } from "../footer.constants";
 import { PRIVACIDADE_CONTENT, TERMOS_CONTENT } from "../footer.legal";
 
@@ -39,6 +40,7 @@ export function Footer() {
             </p>
             <a
               href="#cta"
+              onClick={handleAnchorClick}
               className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-lg bg-[#534AB7] hover:bg-[#6560C8] text-white font-semibold text-[0.8rem] [transition:background_150ms_ease] shrink-0"
             >
               Iniciar um projeto
@@ -52,7 +54,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr] gap-12">
           {/* Brand column */}
           <div className="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
-            <a href="#" className="w-fit ml-0 -mt-10 sm:-ml-10 sm:-mt-16">
+            <a href="#top" onClick={handleAnchorClick} className="w-fit ml-0 -mt-10 sm:-ml-10 sm:-mt-16">
               <img
                 src="/assets/logo/probuled-horizontal-sem-fundo.png"
                 alt="ProBuled — Built pro, delivered right"
@@ -90,6 +92,7 @@ export function Footer() {
                   <li key={label}>
                     <a
                       href={href}
+                      onClick={handleAnchorClick}
                       className="text-[0.9rem] text-white/50 hover:text-white [transition:color_150ms_ease]"
                     >
                       {label}
