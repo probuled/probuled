@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
+import { LegalModal } from "../../../shared/ui/LegalModal";
 import { COLS } from "../footer.constants";
+import { PRIVACIDADE_CONTENT, TERMOS_CONTENT } from "../footer.legal";
 
 const SOCIALS = [
   {
@@ -17,7 +20,11 @@ const SOCIALS = [
   { label: "Email", href: "mailto:probuled@gmail.com", Icon: MdOutlineEmail },
 ];
 
+type Modal = 'privacidade' | 'termos' | null;
+
 export function Footer() {
+  const [modal, setModal] = useState<Modal>(null);
+
   return (
     <footer
       className="bg-[#18171580] border-t border-[#E4E1D6]/10"
@@ -100,21 +107,31 @@ export function Footer() {
         <div className="w-full max-w-container mx-auto px-[clamp(1.25rem,4vw,4rem)] py-5 flex flex-col items-center text-center gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left text-[0.8rem] text-white/25">
           <span>© 2026 ProBuled. Todos os direitos reservados.</span>
           <div className="flex items-center gap-5">
-            <a
-              href="#"
-              className="hover:text-white/50 [transition:color_150ms_ease]"
+            <button
+              onClick={() => setModal('privacidade')}
+              className="hover:text-white/50 [transition:color_150ms_ease] cursor-pointer"
             >
               Privacidade
-            </a>
-            <a
-              href="#"
-              className="hover:text-white/50 [transition:color_150ms_ease]"
+            </button>
+            <button
+              onClick={() => setModal('termos')}
+              className="hover:text-white/50 [transition:color_150ms_ease] cursor-pointer"
             >
               Termos
-            </a>
+            </button>
           </div>
         </div>
       </div>
+      {modal === 'privacidade' && (
+        <LegalModal title="Política de Privacidade" onClose={() => setModal(null)}>
+          {PRIVACIDADE_CONTENT}
+        </LegalModal>
+      )}
+      {modal === 'termos' && (
+        <LegalModal title="Termos de Uso" onClose={() => setModal(null)}>
+          {TERMOS_CONTENT}
+        </LegalModal>
+      )}
     </footer>
   );
 }
