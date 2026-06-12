@@ -26,7 +26,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Field,
-  FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -41,6 +41,11 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import {
+  projetoSchema,
+  minDeliveryDate,
+  type ProjetoFieldErrors,
+} from "./projeto.schema";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -365,21 +370,31 @@ function SectionLegend({
   );
 }
 
+function Req() {
+  return (
+    <span className="text-red-500" aria-hidden="true">
+      {" *"}
+    </span>
+  );
+}
+
 function StepForm({
   form,
+  errors,
   onChange,
   onDateChange,
   onBack,
   onSubmit,
 }: {
   form: FormData;
+  errors: ProjetoFieldErrors;
   onChange: (name: keyof FormData, value: string) => void;
   onDateChange: (date: Date | undefined) => void;
   onBack: () => void;
   onSubmit: (e: React.FormEvent) => void;
 }) {
   return (
-    <form onSubmit={onSubmit} className="pb-form space-y-8">
+    <form onSubmit={onSubmit} noValidate className="pb-form space-y-8">
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
@@ -405,18 +420,24 @@ function StepForm({
             <Field>
               <FieldLabel htmlFor="razaoSocial">
                 Razão Social / Nome completo
+                <Req />
               </FieldLabel>
               <Input
                 id="razaoSocial"
                 placeholder="Ex: João Silva ou Silva &amp; Cia Ltda"
                 required
+                aria-invalid={!!errors.razaoSocial}
                 value={form.razaoSocial}
                 onChange={(e) => onChange("razaoSocial", e.target.value)}
               />
+              <FieldError>{errors.razaoSocial}</FieldError>
             </Field>
             <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field>
-                <FieldLabel htmlFor="tipoCpfCnpj">Tipo de documento</FieldLabel>
+                <FieldLabel htmlFor="tipoCpfCnpj">
+                  Tipo de documento
+                  <Req />
+                </FieldLabel>
                 <Select
                   value={form.tipoCpfCnpj}
                   onValueChange={(v) => onChange("tipoCpfCnpj", v)}
@@ -433,6 +454,7 @@ function StepForm({
               <Field>
                 <FieldLabel htmlFor="cpfCnpj">
                   {form.tipoCpfCnpj === "cpf" ? "CPF" : "CNPJ"}
+                  <Req />
                 </FieldLabel>
                 <Input
                   id="cpfCnpj"
@@ -442,6 +464,7 @@ function StepForm({
                       : "00.000.000/0000-00"
                   }
                   required
+                  aria-invalid={!!errors.cpfCnpj}
                   value={form.cpfCnpj}
                   onChange={(e) => {
                     const masked =
@@ -451,17 +474,23 @@ function StepForm({
                     onChange("cpfCnpj", masked);
                   }}
                 />
+                <FieldError>{errors.cpfCnpj}</FieldError>
               </Field>
             </FieldGroup>
             <Field>
-              <FieldLabel htmlFor="endereco">Endereço completo</FieldLabel>
+              <FieldLabel htmlFor="endereco">
+                Endereço completo
+                <Req />
+              </FieldLabel>
               <Input
                 id="endereco"
                 placeholder="Rua, número, bairro, cidade, estado, CEP"
                 required
+                aria-invalid={!!errors.endereco}
                 value={form.endereco}
                 onChange={(e) => onChange("endereco", e.target.value)}
               />
+              <FieldError>{errors.endereco}</FieldError>
             </Field>
           </FieldGroup>
         </FieldSet>
@@ -472,28 +501,38 @@ function StepForm({
           <SectionLegend icon={<Mail size={18} />}>Contato</SectionLegend>
           <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field>
-              <FieldLabel htmlFor="telefone">Telefone</FieldLabel>
+              <FieldLabel htmlFor="telefone">
+                Telefone
+                <Req />
+              </FieldLabel>
               <Input
                 id="telefone"
                 type="tel"
                 placeholder="(11) 99999-9999"
                 required
+                aria-invalid={!!errors.telefone}
                 value={form.telefone}
                 onChange={(e) =>
                   onChange("telefone", maskPhone(e.target.value))
                 }
               />
+              <FieldError>{errors.telefone}</FieldError>
             </Field>
             <Field>
-              <FieldLabel htmlFor="email">E-mail</FieldLabel>
+              <FieldLabel htmlFor="email">
+                E-mail
+                <Req />
+              </FieldLabel>
               <Input
                 id="email"
                 type="email"
                 placeholder="seuemail@email.com"
                 required
+                aria-invalid={!!errors.email}
                 value={form.email}
                 onChange={(e) => onChange("email", e.target.value)}
               />
+              <FieldError>{errors.email}</FieldError>
             </Field>
           </FieldGroup>
         </FieldSet>
@@ -506,30 +545,40 @@ function StepForm({
             <Field>
               <FieldLabel htmlFor="descricaoServico">
                 Descrição do serviço
+                <Req />
               </FieldLabel>
               <Textarea
                 id="descricaoServico"
                 rows={4}
                 placeholder="Descreva o que você precisa, funcionalidades, objetivo do projeto..."
                 required
+                aria-invalid={!!errors.descricaoServico}
                 value={form.descricaoServico}
                 onChange={(e) => onChange("descricaoServico", e.target.value)}
               />
+              <FieldError>{errors.descricaoServico}</FieldError>
             </Field>
             <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field>
-                <FieldLabel htmlFor="urlSite">URL ou nome do site</FieldLabel>
+                <FieldLabel htmlFor="urlSite">
+                  URL ou nome do site
+                  <span className="font-normal text-muted-foreground">
+                    {" (Opcional)"}
+                  </span>
+                </FieldLabel>
                 <Input
                   id="urlSite"
                   placeholder="Ex: meusite.com.br"
+                  aria-invalid={!!errors.urlSite}
                   value={form.urlSite}
                   onChange={(e) => onChange("urlSite", e.target.value)}
                 />
-                <FieldDescription>Opcional.</FieldDescription>
+                <FieldError>{errors.urlSite}</FieldError>
               </Field>
               <Field>
                 <FieldLabel htmlFor="dataEntrega">
                   Data de entrega desejada
+                  <Req />
                 </FieldLabel>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -537,9 +586,12 @@ function StepForm({
                       id="dataEntrega"
                       type="button"
                       variant="outline"
+                      aria-invalid={!!errors.dataEntrega}
                       className={cn(
                         "w-full justify-start text-left font-normal",
                         !form.dataEntrega && "text-muted-foreground",
+                        errors.dataEntrega &&
+                          "border-destructive focus-visible:ring-destructive",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -553,11 +605,12 @@ function StepForm({
                       mode="single"
                       selected={form.dataEntrega}
                       onSelect={onDateChange}
-                      disabled={(date) => date < new Date()}
+                      disabled={(date) => date < minDeliveryDate()}
                       autoFocus
                     />
                   </PopoverContent>
                 </Popover>
+                <FieldError>{errors.dataEntrega}</FieldError>
               </Field>
             </FieldGroup>
           </FieldGroup>
@@ -571,7 +624,10 @@ function StepForm({
           </SectionLegend>
           <FieldGroup className="gap-4">
             <Field>
-              <FieldLabel>Forma de pagamento</FieldLabel>
+              <FieldLabel>
+                Forma de pagamento
+                <Req />
+              </FieldLabel>
               <RadioGroup
                 value={form.formaPagamento}
                 onValueChange={(v) =>
@@ -591,12 +647,14 @@ function StepForm({
                   </FieldLabel>
                 </Field>
               </RadioGroup>
+              <FieldError>{errors.formaPagamento}</FieldError>
             </Field>
 
             {form.formaPagamento === "parcelado" && (
               <Field>
                 <FieldLabel htmlFor="numeroParcelas">
                   Número de parcelas
+                  <Req />
                 </FieldLabel>
                 <Select
                   value={form.numeroParcelas}
@@ -604,7 +662,11 @@ function StepForm({
                     onChange("numeroParcelas", v as FormData["numeroParcelas"])
                   }
                 >
-                  <SelectTrigger id="numeroParcelas" className="sm:w-[280px]">
+                  <SelectTrigger
+                    id="numeroParcelas"
+                    className="sm:w-[280px]"
+                    aria-invalid={!!errors.numeroParcelas}
+                  >
                     <SelectValue placeholder="Selecione o número de parcelas" />
                   </SelectTrigger>
                   <SelectContent>
@@ -616,6 +678,7 @@ function StepForm({
                     </SelectItem>
                   </SelectContent>
                 </Select>
+                <FieldError>{errors.numeroParcelas}</FieldError>
               </Field>
             )}
           </FieldGroup>
@@ -696,6 +759,7 @@ export function IniciarProjetoPage() {
     false,
   ]);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<ProjetoFieldErrors>({});
   const [form, setForm] = useState<FormData>({
     razaoSocial: "",
     tipoCpfCnpj: "cpf",
@@ -710,7 +774,18 @@ export function IniciarProjetoPage() {
     numeroParcelas: "",
   });
 
+  function clearError(name: keyof FormData) {
+    setErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  }
+
   function onChange(name: keyof FormData, value: string) {
+    clearError(name);
+    if (name === "tipoCpfCnpj") clearError("cpfCnpj");
     setForm((f) => {
       if (name === "tipoCpfCnpj")
         return { ...f, tipoCpfCnpj: value as "cpf" | "cnpj", cpfCnpj: "" };
@@ -720,29 +795,43 @@ export function IniciarProjetoPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.formaPagamento) return;
-    if (form.formaPagamento === "parcelado" && !form.numeroParcelas) return;
+
+    const result = projetoSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: ProjetoFieldErrors = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0];
+        if (typeof key === "string" && !fieldErrors[key as keyof FormData]) {
+          fieldErrors[key as keyof FormData] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
+    const data = result.data;
 
     const parcelas =
-      form.formaPagamento === "parcelado"
-        ? `Número de Parcelas: ${form.numeroParcelas}\n`
+      data.formaPagamento === "parcelado"
+        ? `Número de Parcelas: ${data.numeroParcelas}\n`
         : "";
     const body = [
-      `Razão Social / Nome: ${form.razaoSocial}`,
-      `${form.tipoCpfCnpj.toUpperCase()}: ${form.cpfCnpj}`,
-      `Endereço: ${form.endereco}`,
-      `Telefone: ${form.telefone}`,
-      `E-mail: ${form.email}`,
-      `Descrição do serviço: ${form.descricaoServico}`,
-      `URL / Nome do site: ${form.urlSite || "Não definida"}`,
-      `Data de entrega: ${form.dataEntrega ? format(form.dataEntrega, "dd/MM/yyyy") : "Não definida"}`,
-      `Forma de pagamento: ${form.formaPagamento === "a-vista" ? "À Vista" : "Parcelado (30% entrada + parcelas)"}`,
+      `Razão Social / Nome: ${data.razaoSocial}`,
+      `${data.tipoCpfCnpj.toUpperCase()}: ${data.cpfCnpj}`,
+      `Endereço: ${data.endereco}`,
+      `Telefone: ${data.telefone}`,
+      `E-mail: ${data.email}`,
+      `Descrição do serviço: ${data.descricaoServico}`,
+      `URL / Nome do site: ${data.urlSite || "Não definida"}`,
+      `Data de entrega: ${format(data.dataEntrega, "dd/MM/yyyy")}`,
+      `Forma de pagamento: ${data.formaPagamento === "a-vista" ? "À Vista" : "Parcelado (30% entrada + parcelas)"}`,
       parcelas,
     ]
       .filter(Boolean)
       .join("\n");
 
-    window.location.href = `mailto:probuled@gmail.com?subject=${encodeURIComponent(`Novo Projeto – ${form.razaoSocial}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:probuled@gmail.com?subject=${encodeURIComponent(`Novo Projeto – ${data.razaoSocial}`)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   }
 
@@ -793,10 +882,12 @@ export function IniciarProjetoPage() {
           {step === 3 && (
             <StepForm
               form={form}
+              errors={errors}
               onChange={onChange}
-              onDateChange={(date) =>
-                setForm((f) => ({ ...f, dataEntrega: date }))
-              }
+              onDateChange={(date) => {
+                clearError("dataEntrega");
+                setForm((f) => ({ ...f, dataEntrega: date }));
+              }}
               onBack={() => setStep(2)}
               onSubmit={handleSubmit}
             />
