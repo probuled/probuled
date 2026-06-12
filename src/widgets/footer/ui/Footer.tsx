@@ -30,10 +30,10 @@ export function Footer() {
             Built pro, <span className="text-grad-light">delivered right.</span>
           </p>
           <a
-            href="#contact"
+            href="#cta"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#534AB7] hover:bg-[#6560C8] text-white font-semibold text-sm [transition:background_150ms_ease] shrink-0"
           >
-            Fale com a gente
+            Iniciar um projeto
           </a>
         </div>
       </div>

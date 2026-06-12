@@ -1,4 +1,4 @@
-import { Button, Icon } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 import { useScrolled }  from '@/shared/hooks';
 import { NAV_LINKS } from '../nav.constants';
 
@@ -35,8 +35,7 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-[0.8rem]">
-          <Button variant="ghost" size="sm" as="a" href="#top">Entrar</Button>
-          <Button variant="primary" size="sm" as="a" href="/iniciar-projeto" iconRight={<Icon name="arrow-right" size={16} />}>
+          <Button variant="primary" size="sm" as="a" href="#cta">
             Iniciar um projeto
           </Button>
         </div>
