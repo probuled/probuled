@@ -127,6 +127,7 @@ export function Portfolio() {
                 <iframe
                   src={p.url}
                   title={p.title}
+                  scrolling="no"
                   style={{
                     position: 'absolute',
                     top: 0, left: 0,
@@ -138,6 +139,10 @@ export function Portfolio() {
                   }}
                 />
               )}
+
+              {/* Touch shield: blocks compositor-thread iframe scroll on mobile.
+                  Events bubble to container → swipe + page pan-y still work. */}
+              <div style={{ position: 'absolute', inset: 0, zIndex: 1 }} />
 
               {/* Bottom info overlay */}
               <div style={{
