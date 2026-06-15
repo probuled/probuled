@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Check,
   ArrowRight,
@@ -165,15 +165,15 @@ function StepApresentacao({ onNext }: { onNext: () => void }) {
       <div className="relative">
         <div className="absolute -top-12 -right-8 w-64 h-64 rounded-full blur-[64px] opacity-40 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
         <div className="absolute -bottom-16 -left-10 w-52 h-52 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_50%_50%,#63CDA6,#1D9E75)] pointer-events-none" />
-        <div className="relative space-y-3 text-center sm:text-left">
-          <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
+        <div className="relative space-y-3 text-center">
+          <span className="inline-flex items-center justify-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <Sparkles size={13} />
             Iniciar um projeto
           </span>
           <h1 className="font-display font-bold tracking-[-0.03em] leading-[1.05] text-[clamp(2.1rem,1.5rem+2.6vw,3rem)] text-[#2C2763]">
             Vamos construir algo <span className="text-grad">pro</span>.
           </h1>
-          <p className="text-[#424039] text-lg leading-relaxed max-w-[52ch] mx-auto sm:mx-0">
+          <p className="text-[#424039] text-lg leading-relaxed max-w-[52ch] mx-auto">
             Preencha o formulário e a ProBuled entra em contato em até um dia
             útil com plano, cronograma e proposta detalhada.
           </p>
@@ -271,15 +271,15 @@ function StepTermos({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3 text-center sm:text-left">
-          <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
+        <div className="relative space-y-3 text-center">
+          <span className="inline-flex items-center justify-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <ShieldCheck size={13} />
             Termos &amp; condições
           </span>
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Termos de <span className="text-grad">concordância</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto">
             Leia e confirme cada item abaixo antes de prosseguir.
           </p>
         </div>
@@ -404,15 +404,15 @@ function StepForm({
       {/* Header — ProBuled brand language */}
       <div className="relative">
         <div className="absolute -top-10 -right-8 w-56 h-56 rounded-full blur-[64px] opacity-30 bg-[radial-gradient(circle_at_30%_30%,#8F86DC,#534AB7)] pointer-events-none" />
-        <div className="relative space-y-3 text-center sm:text-left">
-          <span className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
+        <div className="relative space-y-3 text-center">
+          <span className="inline-flex items-center justify-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[#157E5E]">
             <Rocket size={13} />
             Dados do projeto
           </span>
           <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.7rem,1.3rem+1.8vw,2.3rem)] text-[#2C2763]">
             Conte sobre o seu <span className="text-grad">projeto</span>.
           </h2>
-          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto sm:mx-0">
+          <p className="text-[#424039] leading-relaxed max-w-[54ch] mx-auto">
             Preencha todos os campos. Essas informações serão usadas para
             elaborar a proposta e o contrato.
           </p>
@@ -825,6 +825,11 @@ export function IniciarProjetoPage() {
     false,
   ]);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step, submitted]);
+
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [errors, setErrors] = useState<ProjetoFieldErrors>({});
@@ -955,14 +960,14 @@ Entre em contato em até 1 dia útil para enviar o plano e a proposta. Para resp
       <header className="flex justify-center py-6 border-b">
         <a
           href="/"
-          className="flex items-center gap-[0.7rem] font-semibold text-xl tracking-tight"
+          className="flex items-center gap-[0.7rem] font-display font-bold text-[clamp(1.1rem,4vw,1.35rem)] tracking-[-0.02em]"
         >
           <img
             src="/assets/logo/probuled-mark.png"
             alt="ProBuled"
-            className="w-[38px] h-[38px] rounded-md"
+            className="w-[38px] h-[38px] rounded-[10px] shadow-sm"
           />
-          <span>ProBuled</span>
+          <span className="text-[#2C2763]">ProBuled</span>
         </a>
       </header>
 
