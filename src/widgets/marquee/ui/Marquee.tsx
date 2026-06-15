@@ -18,6 +18,8 @@ export function Marquee() {
               <img
                 src={item.src}
                 alt={item.alt}
+                loading="lazy"
+                decoding="async"
                 className={`${item.height} w-auto object-contain grayscale opacity-50 [transition:filter_200ms_ease,opacity_200ms_ease] hover:grayscale-0 hover:opacity-100`}
               />
             </div>

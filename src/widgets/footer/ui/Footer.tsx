@@ -56,8 +56,10 @@ export function Footer() {
           <div className="flex flex-col gap-6 items-center text-center sm:items-start sm:text-left">
             <a href="#top" onClick={handleAnchorClick} className="w-fit ml-0 -mt-10 sm:-ml-10 sm:-mt-16">
               <img
-                src="/assets/logo/probuled-horizontal-sem-fundo.png"
+                src="/assets/logo/probuled-horizontal-sem-fundo.webp"
                 alt="ProBuled — Built pro, delivered right"
+                loading="lazy"
+                decoding="async"
                 className="h-44 sm:h-64 w-auto max-w-full rounded-2xl"
               />
             </a>
