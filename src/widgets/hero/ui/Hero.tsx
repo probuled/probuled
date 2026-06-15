@@ -36,7 +36,7 @@ export function Hero() {
           </p>
 
           <div className="enter flex flex-wrap gap-4 mt-[2.2rem] max-[980px]:justify-center" data-d="4">
-            <Button variant="primary" size="lg" as="a" href="#cta" className="animate-glow-pulse max-[980px]:w-full">
+            <Button variant="primary" size="lg" as="a" href="#cta" className="max-[980px]:w-full">
               Iniciar um projeto
             </Button>
             <Button variant="secondary" size="lg" as="a" href="#portfolio" iconLeft={<Icon name="play" size={16} />} className="max-[980px]:w-full">
@@ -45,9 +45,9 @@ export function Hero() {
           </div>
 
           <div className="enter flex items-center gap-[1.4rem] mt-[2.6rem] flex-wrap max-[980px]:hidden" data-d="5">
-            <DeliveryChip icon={<Icon name="zap" size={13} />} label="Sem intermediários" />
-            <DeliveryChip icon={<Icon name="git-branch" size={13} />} label="Código é seu" />
-            <DeliveryChip icon={<Icon name="rocket" size={13} />} label="Zero surpresa" />
+            <DeliveryChip icon={<Icon name="zap" size={13} />} label="Sem enrolação" />
+            <DeliveryChip icon={<Icon name="git-branch" size={13} />} label="Tudo é seu" />
+            <DeliveryChip icon={<Icon name="rocket" size={13} />} label="Entrega no prazo" />
           </div>
         </div>
 
